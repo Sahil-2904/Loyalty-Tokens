@@ -1,44 +1,9 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/home/Light/Documents/Projects/Hackathon/Loyalty-Tokens/server/contracts/Lock.sol": {
-      "lastModificationDate": 1692128006958,
-      "contentHash": "ae66265769cc28ebdaa34881df95bc5e",
-      "sourceName": "contracts/Lock.sol",
-      "solcConfig": {
-        "version": "0.8.19",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 1000
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.9"
-      ],
-      "artifacts": [
-        "Lock"
-      ]
-    },
     "/home/Light/Documents/Projects/Hackathon/Loyalty-Tokens/server/contracts/LoyaltyToken.sol": {
-      "lastModificationDate": 1692103955310,
-      "contentHash": "0c318f5eb944161fd93fbed9cb2e6bc2",
+      "lastModificationDate": 1692218512971,
+      "contentHash": "65e0f28cea576f9f0b50c3a14f80bf54",
       "sourceName": "contracts/LoyaltyToken.sol",
       "solcConfig": {
         "version": "0.8.19",

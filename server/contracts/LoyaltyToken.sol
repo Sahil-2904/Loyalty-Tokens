@@ -127,11 +127,16 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
     }
 
     function validateTokens(uint256 transactionId) public returns (bool) {
+        require(
+            transactionLog[transactionId].isCredit,
+            "Only for Credited Tokens"
+        );
         uint256 currTime = block.timestamp;
         uint256 mintTime = transactionLog[transactionId].mintDate;
         address from = transactionLog[transactionId].customer;
         uint256 amount = transactionLog[transactionId].amount;
         uint256 currAmount = transactionLog[transactionId].currAmount;
+
         if ((currTime > mintTime + interval) && (currAmount > 0)) {
             bool res = burnToken(from, amount);
             if (res) {
@@ -166,14 +171,12 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
 
     function fetchTransactions(
         address _customer
-    ) public returns (transaction[] memory) {
+    ) public view returns (transaction[] memory) {
         uint256 totalTrans = _transactionId.current();
         uint256 transCount = 0;
 
         for (uint256 i = 1; i <= totalTrans; i++) {
-            if (
-                transactionLog[i].customer == _customer && (validateTokens(i))
-            ) {
+            if (transactionLog[i].customer == _customer) {
                 transCount++;
             }
         }
@@ -251,7 +254,7 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
     function redeemTokens(uint256 amount) public returns (bool) {
         uint256 currBalance = balanceFor[msg.sender];
         require(amount > 0, "Tokens can't be negative");
-        require(currBalance > amount, "Not enough Tokens!");
+        require(currBalance >= amount, "Not enough Tokens!");
 
         _burn(msg.sender, amount);
 
@@ -276,21 +279,21 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
             false,
             "Tokens Redeemed"
         );
-        transaction[] memory all = fetchTransactions(msg.sender);
+        // transaction[] memory all = fetchTransactions(msg.sender);
         balanceFor[msg.sender] -= amount;
 
-        for (uint i = 0; i < all.length; i++) {
-            if (all[i].isCredit) {
-                if (amount >= all[i].currAmount) {
-                    amount -= all[i].currAmount;
-                    all[i].currAmount = 0;
-                } else {
-                    all[i].currAmount -= amount;
-                    amount = 0;
-                    break;
-                }
-            }
-        }
+        // for (uint i = 0; i < all.length; i++) {
+        //     if (all[i].isCredit) {
+        //         if (amount >= all[i].currAmount) {
+        //             amount -= all[i].currAmount;
+        //             all[i].currAmount = 0;
+        //         } else {
+        //             all[i].currAmount -= amount;
+        //             amount = 0;
+        //             break;
+        //         }
+        //     }
+        // }
         return true;
     }
 
