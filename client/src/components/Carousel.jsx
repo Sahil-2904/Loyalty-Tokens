@@ -1,4 +1,5 @@
 import React from 'react';
+import slide from "../images/C.svg"
 function Carousel(){
     return (
 //         <div>
@@ -33,7 +34,7 @@ function Carousel(){
 //   </div>
 // </div>
 //         </div>
-<div className="hero" style={{backgroundImage: 'url(https://daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg)',height:"90vh"}}>
+<div className="hero" style={{backgroundImage: `url(${slide})`,height:"120vh"}}>
   <div className="hero-overlay bg-opacity-60"></div>
   <div className="hero-content text-center text-neutral-content">
     <div className="max-w-md">
