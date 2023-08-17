@@ -6,11 +6,11 @@ import Empty from '../components/Empty.jsx';
 import Full from '../components/Full.jsx';
 import users from "../user.js";
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthenticated } from '../authActions.js';
+import { loginSuccess, logout } from '../authActions.js';
 function MyCart(){
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-    const user = users[0];
+    const user = useSelector((state) => state.auth.user);
     console.log(user);
     return (
         <>

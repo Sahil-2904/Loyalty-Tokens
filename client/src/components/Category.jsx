@@ -3,16 +3,26 @@ import products from '../products';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthenticated } from '../authActions.js';
+import { loginSuccess, logout } from '../authActions.js';
 import { Link,useParams } from 'react-router-dom';
 import ANavbar from './ANavbar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Category(){
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     console.log(isAuthenticated);
     const {category} = useParams();
-    console.log(category);
+    // console.log(category);
     const pro = products.filter(pro => pro.category.toLowerCase() === category);
-    console.log(pro);
+    // console.log(pro);
+    const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
+    const handleClick = (e,id) => {
+        user.cart.push(id);
+        dispatch(loginSuccess(user));
+        console.log(id);
+        toast.success("Product Added to Cart");
+    }
     return (
         <>
             {isAuthenticated ? <ANavbar/> : <Navbar />}
@@ -36,7 +46,7 @@ function Category(){
                                             <p className='flex text-lg flex-wrap'>₹ {product.price}</p> {/* ₨ */}
                                             <div className="card-actions justify-end">
                                                 <Link to={product.link}><button className="btn btn-info">Buy Now</button></Link>
-                                                <button className='btn btn-outline'>Add To Cart</button>
+                                                {isAuthenticated ? <button onClick={ e => handleClick(e,product.id)} className='btn btn-outline'>Add To Cart</button> : <Link to="/login"><button className='btn btn-outline'>Add To Cart</button></Link>}
                                             </div>
                                         </div>
                                     </div>
@@ -45,6 +55,15 @@ function Category(){
                         })
                     }
                 </div>
+                <ToastContainer
+                position="bottom-right"
+                autoClose={1500}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                theme="dark"
+            />
             </div>
             <Footer/>
         </>

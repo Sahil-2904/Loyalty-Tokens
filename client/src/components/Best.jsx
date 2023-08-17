@@ -1,8 +1,21 @@
 import React from 'react';
 import products from '../products';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess, logout } from '../authActions';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Best(){
     const pro = products.filter(pro => pro.tags.toLowerCase() === "best-seller");
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
+    const handleClick = (e,id) => {
+        user.cart.push(id);
+        dispatch(loginSuccess(user));
+        console.log(id);
+        toast.success("Product Added to Cart");
+    }
     return (
         <div className='flex flex-col p-10 gap-10'>
             <div className='flex p-5 justify-center'>
@@ -36,7 +49,7 @@ function Best(){
                                         <p className='flex text-lg flex-wrap'>₹ {product.price}</p> {/* ₨ */}
                                         <div className="card-actions justify-end">
                                             <Link to={link}><button className="btn btn-info">Buy Now</button></Link>
-                                            <button className='btn btn-outline'>Add To Cart</button>
+                                            {isAuthenticated ? <button onClick={ e => handleClick(e,product.id)} className='btn btn-outline'>Add To Cart</button> :<Link to="/login"><button className='btn btn-outline'>Add To Cart</button></Link>}
                                         </div>
                                     </div>
                                 </div>
@@ -45,6 +58,15 @@ function Best(){
                     })
                 }
             </div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={1500}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                theme="dark"
+            />
         </div>
     );
 }

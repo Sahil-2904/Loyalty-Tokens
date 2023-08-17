@@ -7,7 +7,7 @@ import Prod from '../components/Prod';
 import Best from '../components/Best';
 import Footer from "../components/Footer";
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthenticated } from '../authActions';
+import { loginSuccess, logout } from '../authActions';
 function Home(){
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
