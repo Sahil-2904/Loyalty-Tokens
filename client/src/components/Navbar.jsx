@@ -1,16 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Search from "./Search";
+import Logo from "../images/L.svg";
 
 function Navbar(){
     return(
         <>
             <div className="flex justify-between p-5 bg-[#3778e2] bg-transparent backdrop-blur-lg top-0 sticky z-20">
-                <div className="flex justify-between border border-sky-500 rounded-xl p-3 w-1/3  bg-white text-black">
+                {/* <div className="flex justify-between border border-sky-500 rounded-xl p-3 w-1/3  bg-white text-black">
                     <input className="flex outline-none w-full" type="search" placeholder="Search for products,brands and more" name="" id="" />
                     <i style={{color:"black"}} className="flex flex-col justify-center fa-solid fa-magnifying-glass"></i>
-                </div>
+                </div> */}
+                <Search/>
                 <div style={{left:"50%"}} className="flex absolute bg-[#141619] p-3 rounded-full">
                     <h2 className="text-3xl text-white">DE</h2>
+                    {/* <img className="flex w-20 h-20" src={Logo} alt="" /> */}
                 </div>
                 {/* <div className="form-control">
                     <div className="input-group">
@@ -22,7 +26,7 @@ function Navbar(){
                 </div> */}
                 
                 <div className="flex gap-5 justify-center">
-                    <Link to="/login"><button className="flex flex-col justify-center text-2xl p-2 rounded-box">Login</button></Link>
+                    <Link to="/login" className="btn"><button className="flex flex-col justify-center text-2xl p-2 rounded-box">Login</button></Link>
                     {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
                     {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl" onClick={()=>window.my_modal_3.showModal()}>Login</button>
                     <dialog id="my_modal_3" className="modal bg-black/10">

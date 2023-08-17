@@ -7,28 +7,28 @@ function Footer(){
                 <div className='flex flex-col w-1/3 gap-5'>
                     <div className='flex flex-col gap-5'>
                         <div className='flex justify-start'>
-                            <h2 className="flex bg-[#141619] p-3 w-16 rounded-full text-3xl text-white justify-center">DE</h2>
+                            <h2 className="flex bg-white p-3 w-16 rounded-full text-3xl text-[#141619] justify-center">DE</h2>
                         </div>
                         <p className='flex text-xl'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
-                    <div className='flex flex-col gap-2'>
+                    <div className='flex flex-col gap-3'>
                         <h2 className='flex text-3xl'>NewsLetter</h2>
-                        <input className='flex rounded-xl p-3' type="email" placeholder='Enter your Email'/>
-                        <button>Subscribe</button>
+                        <input className='input input-bordered text-black' type="email" placeholder='Enter your Email'/>
+                        <button className='btn btn-md btn-info btn-outline flex w-1/3'>Subscribe</button>
                     </div>
                 </div>
-                <div className='flex flex-col w-1/3 ps-36'>
-                    <h3 className='text-2xl mb-2'>Categories</h3>
-                    <Link to="/categories/fashion"><p>Fashion</p></Link>
-                    <Link to="/categories/sneakers"><p>Sneakers</p></Link>
-                    <Link to="/categories/electronics"><p>Electronics</p></Link>
-                    <Link to="/categories/mobiles"><p>Mobiles</p></Link>
+                <div className='flex flex-col w-1/3 ps-20'>
+                    <h3 className='text-3xl mb-2'>Categories</h3>
+                    <Link to="/categories/fashion"><p className='text-lg'>Fashion</p></Link>
+                    <Link to="/categories/sneakers"><p className='text-lg'>Sneakers</p></Link>
+                    <Link to="/categories/electronics"><p className='text-lg'>Electronics</p></Link>
+                    <Link to="/categories/mobiles"><p className='text-lg'>Mobiles</p></Link>
                 </div>
-                <div className='flex flex-col w-1/3 ps-10'>
-                    <h3 className='text-2xl mb-2'>Services</h3>
-                    <p>Shipping & Delivery</p>
-                    <p>Order Pickup</p>
-                    <p>Account Signup</p>
+                <div className='flex flex-col w-1/3'>
+                    <h3 className='text-3xl mb-2'>Services</h3>
+                    <p className='text-lg'>Shipping & Delivery</p>
+                    <p className='text-lg'>Order Pickup</p>
+                    <p className='text-lg'>Account Signup</p>
                 </div>
             </div>
             <hr className="flex"/>

@@ -11,8 +11,8 @@ function Full(props){
 
     return (
         <div className='flex flex-col gap-2'>
-            <h2>Total price: {price}</h2>
-            <div className="overflow-x-auto">
+            <h2 className='flex text-3xl p-3 justify-end'>Total price: {price}</h2>
+            <div className="overflow-x-auto m-5">
                 <table className="table">
                 {/* head */}
                 <thead>
@@ -94,8 +94,8 @@ function Full(props){
                     // })
                 }
             {/* </div> */}
-            <div className='flex justify-center'>
-                <Link to="/"><button className='flex text-4xl p-5 bg-emerald-600 text-black/60 rounded-3xl'>Continue Shopping</button></Link>
+            <div className='flex justify-center p-5'>
+                <Link to="/"><button className='flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl'>Connect Wallet</button></Link>
             </div>
         </div>
     );
