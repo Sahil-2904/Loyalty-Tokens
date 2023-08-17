@@ -18,7 +18,7 @@ function MyCart(){
             
             <div className='flex flex-col p-16'>
                 <div className='flex justify-left'>
-                    <h2 className='flex text-5xl'>My Cart  {(user.cart.length === 0 ? null : `(${user.cart.length})`)}</h2>
+                    <h2 className='flex text-5xl p-3'>My Cart  {(user.cart.length === 0 ? null : `(${user.cart.length})`)}</h2>
                 </div>
                 <div>
                     {

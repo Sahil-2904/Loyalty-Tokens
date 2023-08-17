@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import cart from "../images/cart.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess, logout } from '../authActions.js';
+import Search from "./Search";
 
 function ANavbar(){
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -14,10 +15,11 @@ function ANavbar(){
     return(
         <>
             <div className="flex justify-between p-5 bg-[#3778e2] bg-transparent backdrop-blur-lg top-0 sticky z-20">
-                <div className="flex justify-between border border-sky-500 rounded-xl p-3 w-1/3  bg-white text-black">
+                {/* <div className="flex justify-between border border-sky-500 rounded-xl p-3 w-1/3  bg-white text-black">
                     <input className="flex outline-none w-full" type="search" placeholder="Search for products,brands and more" name="" id="" />
                     <i style={{color:"black"}} className="flex flex-col justify-center fa-solid fa-magnifying-glass"></i>
-                </div>
+                </div> */}
+                <Search/>
                 <div style={{left:"50%"}} className="flex absolute bg-[#141619] p-3 rounded-full">
                     <Link to="/"><h2 className="text-3xl text-white">DE</h2></Link>
                 </div>
@@ -64,7 +66,7 @@ function ANavbar(){
                             </a>
                         </form>
                     </dialog> */}
-                    <Link to="/" className="flex flex-col justify-center text-xl"><button onClick={handleLogout}>Logout</button></Link>
+                    <Link to="/" className="flex flex-col justify-center text-xl btn btn-outline btn-success"><button onClick={handleLogout}>Logout</button></Link>
                 </div>
             </div>
         </>
