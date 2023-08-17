@@ -1,11 +1,47 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import visible from "../images/show.png";
 import hidden from "../images/hide.png";
 import Log from "../images/login.png";
 import Google from "../images/google.png";
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess, logout } from '../authActions';
 function Login(){
     const [show,setShow] = useState(false);
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+    const [link,setLink] = useState("/login");
+    useEffect(() => {
+      setLink("/")
+    },[isAuthenticated]);
+
+    const handleLogin = async () => {
+      try{
+        const response = await fetch("http://localhost:3000/login",{
+          method:"POST",
+          headers:{
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password })
+        })
+        const data = await response.json();
+        console.log(response);
+        console.log(data.user);
+        if(response.ok){
+          dispatch(loginSuccess(data.user)); // Dispatch the action to login success state
+        }
+        else{
+          console.log(data.message);
+        }
+      }
+      catch (error){
+        console.log(error);
+      }
+      
+    };
     return (
         <div className='flex justify-center p-20 min-h-screen'>
             <div className='flex flex-col justify-center w-1/2'>
@@ -17,17 +53,20 @@ function Login(){
                 <h2 className='flex text-5xl uppercase justify-center'>Login</h2>
                 <div className='flex flex-col justify-center gap-5 p-10 pb-2'>
                     <div className='flex justify-center'>
-                        <input type="email" placeholder="Email" className="input input-info w-full max-w-xs" />
+                        <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder="Email" className="input input-info w-full max-w-xs" />
                     </div>
                     <div className='flex justify-center gap-3'>
-                        <input type={show ? "text" : "password"} placeholder="Password" className="input input-info w-full max-w-xs" />
-                        <button onClick={() => {setShow(!show)}} className='absolute flex flex-col justify-center hover:bg-slate-100 p-2 rounded-full top-[340px] right-[250px]'><img className='flex flex-col justify-center w-5 h-5' src={show ? visible : hidden} alt="" /></button>
+                        <input onChange={(e) => setPassword(e.target.value)} value={password} type={show ? "text" : "password"} placeholder="Password" className="input input-info w-full max-w-xs" />
+                        <button onClick={() => {setShow(!show)}} className='absolute flex flex-col justify-center hover:bg-slate-100 p-2 rounded-full top-[345px] right-[250px]'><img className='flex flex-col justify-center w-5 h-5' src={show ? visible : hidden} alt="" /></button>
                     </div>
-                    <a className="flex justify-center p-3" href="/auth/google"> 
+                    <button onClick={handleLogin} className="flex justify-center p-3"> 
+                      <Link to={link}>
                         <div className="flex gap-x-5 bg-sky-400 rounded-2xl p-3 shadow hover:bg-sky-500  transition-all duration-300 ease-out">
-                            <h1 className="text-2xl flex justify-center w-28">Log In</h1>
-                        </div>
-                    </a>
+                              <h1 className="text-2xl flex justify-center w-28">Log In</h1>
+                          </div>
+                      </Link>
+                        
+                    </button>
                 </div>
                 <hr className='flex w-1/2 mx-auto' />
                 <div className="flex justify-center p-5" > 
@@ -44,3 +83,27 @@ function Login(){
     );
 }
 export default Login;
+// import React from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { setAuthenticated } from '../authActions';
+
+// const Login = () => {
+//   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+//   const dispatch = useDispatch();
+
+//   const handleLogin = () => {
+//     dispatch(setAuthenticated(true)); // Dispatch the action to set authentication state
+//   };
+
+//   return (
+//     <div>
+//       {isAuthenticated ? (
+//         <p>Welcome, you are authenticated!</p>
+//       ) : (
+//         <button onClick={handleLogin}>Login</button>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Login;

@@ -1,7 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import cart from "../images/cart.png";
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess, logout } from '../authActions.js';
 
 function ANavbar(){
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const dispatch = useDispatch();
+    const handleLogout = () => {
+        dispatch(logout());
+    }
+    const user = useSelector((state) => state.auth.user);
     return(
         <>
             <div className="flex justify-between p-5 bg-[#3778e2] bg-transparent backdrop-blur-lg top-0 sticky z-20">
@@ -10,7 +19,7 @@ function ANavbar(){
                     <i style={{color:"black"}} className="flex flex-col justify-center fa-solid fa-magnifying-glass"></i>
                 </div>
                 <div style={{left:"50%"}} className="flex absolute bg-[#141619] p-3 rounded-full">
-                    <h2 className="text-3xl text-white">DE</h2>
+                    <Link to="/"><h2 className="text-3xl text-white">DE</h2></Link>
                 </div>
                 {/* <div className="form-control">
                     <div className="input-group">
@@ -24,11 +33,12 @@ function ANavbar(){
                 <div className="flex gap-5 justify-center">
                     <div className="avatar">
                         <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
-                            <p className="flex flex-col justify-center text-4xl p-1 text-sky-500">S</p>
+                            <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase">{user.name.slice(0,2)}</p>
+
                             {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
                         </div>
                     </div>
-                    <Link to="/mycart"><button className="flex flex-col justify-center text-2xl p-2 rounded-box">My Cart</button></Link>
+                    <Link to="/mycart"><button className="flex justify-center text-2xl p-2 rounded-box gap-2"><img src={cart} className="flex w-8 h-8" />My Cart</button></Link>
                     {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
                     {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl" onClick={()=>window.my_modal_3.showModal()}>Login</button>
                     <dialog id="my_modal_3" className="modal bg-black/10">
@@ -54,6 +64,7 @@ function ANavbar(){
                             </a>
                         </form>
                     </dialog> */}
+                    <Link to="/" className="flex flex-col justify-center text-xl"><button onClick={handleLogout}>Logout</button></Link>
                 </div>
             </div>
         </>

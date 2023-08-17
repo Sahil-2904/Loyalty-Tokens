@@ -4,15 +4,20 @@ import ANavbar from '../components/ANavbar';
 import Categories from '../components/Categories';
 import Carousel from '../components/Carousel';
 import Prod from '../components/Prod';
+import Best from '../components/Best';
 import Footer from "../components/Footer";
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess, logout } from '../authActions';
 function Home(){
-    const [authenticated,setAuthenticate] = useState(true);
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
     return (
         <>
-            {authenticated ? <ANavbar/> : <Navbar/>}
+            {isAuthenticated ? <ANavbar/> : <Navbar/>}
             <Carousel />
             <Categories />
             <Prod/>
+            <Best/>
             <Footer />
         </>
     );
