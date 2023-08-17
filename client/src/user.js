@@ -5,7 +5,7 @@ const users = [
         email:"sahildhoot.29@gmail.com",
         password:"DE",
         contact:"9146045689",
-        cart:[],
+        cart:[2,6],
         loyalty:"100",
         purchased:[],
         walletadd:""

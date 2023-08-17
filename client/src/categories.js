@@ -6,22 +6,22 @@ const categories = [
     {
         name:"Electronics",
         img:electronics,
-        link:"./categories/electronics"
+        link:"/categories/electronics"
     },
     {
         name:"Fashion",
         img:fashion,
-        link:"./categories/fashion"
+        link:"/categories/fashion"
     },
     {
         name:"Sneakers",
         img:sneakers,
-        link:"./categories/sneakers"
+        link:"/categories/sneakers"
     },
     {
         name:"Mobiles",
         img:mobiles,
-        link:"./categories/mobiles"
+        link:"/categories/mobiles"
     },
 ];
 export default categories;

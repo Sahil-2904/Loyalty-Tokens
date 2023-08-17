@@ -1,12 +1,12 @@
 import React from 'react';
 import products from '../products';
 import { Link } from "react-router-dom";
-function Prod(){
-    const pro = products.filter(pro => pro.tags.toLowerCase() === "top");
+function Best(){
+    const pro = products.filter(pro => pro.tags.toLowerCase() === "best-seller");
     return (
         <div className='flex flex-col p-10 gap-10'>
             <div className='flex p-5 justify-center'>
-                <h2 className='flex text-5xl'>Top Picks</h2>
+                <h2 className='flex text-5xl'>Best Sellers</h2>
             </div>
             {/* <div className='flex gap-10 justify-center'>
                 {
@@ -29,7 +29,7 @@ function Prod(){
                             <div key={index} className="carousel-item w-1/3 flex justify-center">
                                 <div className="card w-96 bg-base-100 shadow-xl">
                                     <figure className='flex w-72 h-72 mx-auto'>
-                                        <img src={product.thumbnail} className="rounded-box object-contain" />
+                                        <img src={product.thumbnail} className="rounded-box object-fill" />
                                     </figure>
                                     <div className="card-body">
                                         <h2 className='flex text-2xl'>{product.title}</h2>
@@ -48,4 +48,4 @@ function Prod(){
         </div>
     );
 }
-export default Prod;
+export default Best;
