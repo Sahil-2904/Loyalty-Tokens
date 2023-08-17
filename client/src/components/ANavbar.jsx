@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Navbar(){
+function ANavbar(){
     return(
         <>
             <div className="flex justify-between p-5 bg-[#3778e2] bg-transparent backdrop-blur-lg top-0 sticky z-20">
@@ -22,7 +22,13 @@ function Navbar(){
                 </div> */}
                 
                 <div className="flex gap-5 justify-center">
-                    <Link to="/login"><button className="flex flex-col justify-center text-2xl p-2 rounded-box">Login</button></Link>
+                    <div className="avatar">
+                        <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
+                            <p className="flex flex-col justify-center text-4xl p-1 text-sky-500">S</p>
+                            {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
+                        </div>
+                    </div>
+                    <Link to="/mycart"><button className="flex flex-col justify-center text-2xl p-2 rounded-box">My Cart</button></Link>
                     {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
                     {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl" onClick={()=>window.my_modal_3.showModal()}>Login</button>
                     <dialog id="my_modal_3" className="modal bg-black/10">
@@ -48,11 +54,10 @@ function Navbar(){
                             </a>
                         </form>
                     </dialog> */}
-                    
                 </div>
             </div>
         </>
     )
 }
 
-export default Navbar;
+export default ANavbar;
