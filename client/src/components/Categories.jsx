@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import categories from '../categories';
 function Categories(){
     return (
@@ -10,14 +11,14 @@ function Categories(){
                 {
                     categories.map((cat,index) => {
                         return(
-                            <a href={cat.link} key={index} className='flex flex-col rounded-xl bg-transparent text-center p-5 translate-y-3 hover:translate-y-0 transition-all duration-300'>
+                            <Link to={cat.link} key={index} className='flex flex-col rounded-xl bg-transparent text-center p-5 translate-y-3 hover:translate-y-0 transition-all duration-300'>
                                 <div className='flex'>
                                     <img className='flex w-60 h-60 rounded-2xl' src={cat.img} alt="" />
                                 </div>
                                 <div className='flex justify-center p-3'>
                                     <h2 className='flex text-3xl justify-center'>{cat.name}</h2>
                                 </div>
-                            </a>
+                            </Link>
                         )
                     })
                 }

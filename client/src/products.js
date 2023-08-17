@@ -1,6 +1,6 @@
 const products = [
     {
-        id:"1",
+        id:1,
         title:"Nike Flight Legacy",
         desc:"Flight Legacy Sneakers For Men  (White)",
         thumbnail:"https://rukminim2.flixcart.com/image/832/832/xif0q/shoe/y/h/m/8-bq4212-100-8-nike-white-original-imagqzkv6gyupkuh.jpeg?q=70",
@@ -123,13 +123,13 @@ const products = [
         id:11,
         title:"White-Navy Sneakers",
         desc:"Sneakers For Men",
-        thumbnail:"h",
+        thumbnail:"https://rukminim2.flixcart.com/image/416/416/xif0q/shoe/f/y/x/8-tarzan-04-asian-white-navy-grey-original-imagppfwgmac78ay.jpeg?q=70",
         price:900,
         rating:4.00,
         discount:30,
         category:"Sneakers",
         link:"/products/11",
-        tags:"TOp"
+        tags:"Top"
     },
     {
         id:12,
