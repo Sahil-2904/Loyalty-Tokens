@@ -5,10 +5,11 @@ import Log from "../images/login.png";
 import Google from "../images/google.png";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthenticated } from '../authActions';
+import { loginSuccess, logout } from '../authActions';
 function Login(){
     const [show,setShow] = useState(false);
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch();
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
@@ -28,9 +29,9 @@ function Login(){
         })
         const data = await response.json();
         console.log(response);
-        console.log(data);
+        console.log(data.user);
         if(response.ok){
-          dispatch(setAuthenticated(true)); // Dispatch the action to set authentication state
+          dispatch(loginSuccess(data.user)); // Dispatch the action to login success state
         }
         else{
           console.log(data.message);

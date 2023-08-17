@@ -2,14 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import cart from "../images/cart.png";
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthenticated } from '../authActions.js';
+import { loginSuccess, logout } from '../authActions.js';
 
 function ANavbar(){
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const dispatch = useDispatch();
     const handleLogout = () => {
-        dispatch(setAuthenticated(false));
+        dispatch(logout());
     }
+    const user = useSelector((state) => state.auth.user);
     return(
         <>
             <div className="flex justify-between p-5 bg-[#3778e2] bg-transparent backdrop-blur-lg top-0 sticky z-20">
@@ -32,7 +33,8 @@ function ANavbar(){
                 <div className="flex gap-5 justify-center">
                     <div className="avatar">
                         <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
-                            <p className="flex flex-col justify-center text-4xl p-1 text-sky-500">S</p>
+                            <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase">{user.name.slice(0,2)}</p>
+
                             {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
                         </div>
                     </div>
@@ -62,7 +64,7 @@ function ANavbar(){
                             </a>
                         </form>
                     </dialog> */}
-                    <button onClick={handleLogout}>Logut</button>
+                    <Link to="/" className="flex flex-col justify-center text-xl"><button onClick={handleLogout}>Logout</button></Link>
                 </div>
             </div>
         </>

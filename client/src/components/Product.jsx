@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthenticated } from '../authActions.js';
+import { loginSuccess, logout } from '../authActions.js';
 import ANavbar from './ANavbar';
 function Product(){
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -34,6 +34,7 @@ function Product(){
                     </div>
                 </div>
             </div>
+            
             
             <Footer/>
         </>

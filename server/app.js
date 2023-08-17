@@ -17,6 +17,17 @@ const users = [
         loyalty:"100",
         purchased:[],
         walletadd:""
+    },
+    {
+        id:"2",
+        name:"SD",
+        email:"s@gmail.com",
+        password:"DE",
+        contact:"9146045689",
+        cart:[4],
+        loyalty:"100",
+        purchased:[],
+        walletadd:""
     }
 ];
 
@@ -26,7 +37,7 @@ app.post("/login",(req,res) => {
     console.log(email,password);
     const user = users.find((user) => user.email === email && user.password === password)
     if(user){
-        res.status(200).json({message:"Login Successful"});
+        res.status(200).json({user:user,message:"Login Successful"});
     }
     else{
         res.status(401).json({message:"Invalid Email or Password"});
