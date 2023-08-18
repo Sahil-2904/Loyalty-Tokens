@@ -4,6 +4,7 @@ import cart from "../images/cart.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess, logout } from '../authActions.js';
 import Search from "./Search";
+import Logo from "../images/Lo.svg";
 
 function ANavbar(){
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -21,7 +22,8 @@ function ANavbar(){
                 </div> */}
                 <Search/>
                 <div style={{left:"50%"}} className="flex absolute bg-[#141619] p-3 rounded-full">
-                    <Link to="/"><h2 className="text-3xl text-white">DE</h2></Link>
+                    <Link to="/"><img className="w-12 h-12" src={Logo} alt="" /></Link>
+                    {/* <h2 className="text-3xl text-white">DE</h2> */}
                 </div>
                 {/* <div className="form-control">
                     <div className="input-group">

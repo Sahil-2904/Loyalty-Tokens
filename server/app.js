@@ -1,10 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(10);
 const app = express();
-
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -16,7 +15,7 @@ let users = [
         email:"sahildhoot.29@gmail.com",
         password:"$2a$10$kXTCghQ9zmV7bu5AQO5EduGG1XTl7c.16vB1l8wRXdjNFzQ4EB4bu",
         contact:"9146045689",
-        cart:[2,6],
+        cart:[{id:2,quantity:1},{id:6,quantity:1}],
         loyalty:"100",
         purchased:[],
         walletadd:"0x"
@@ -25,9 +24,9 @@ let users = [
         id:"2",
         name:"SD",
         email:"s@gmail.com",
-        password:"$2a$10$kXTCghQ9zmV7bu5AQO5EduGG1XTl7c.16vB1l8wRXdjNFzQ4EB4bu",
+        password:"DE",
         contact:"9146045689",
-        cart:[4],
+        cart:[{id:4,quantity:1}],
         loyalty:"100",
         purchased:[],
         walletadd:"0x"
@@ -71,7 +70,7 @@ app.post("/signup",(req,res) => {
 app.post("/login",(req,res) => {
     const {email,password} = req.body;
     const hashedpassword = bcrypt.hashSync(password,salt);
-    console.log(email,hashedpassword);
+    console.log(email,hashedpassword,password);
     const user = users.find((user) => user.email === email && user.password === password)
     if(user){
         res.status(200).json({user:user,message:"Login Successful"});

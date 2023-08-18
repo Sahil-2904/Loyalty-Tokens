@@ -18,7 +18,11 @@ function Category(){
     const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch();
     const handleClick = (e,id) => {
-        user.cart.push(id);
+        const item = {
+            id:id,
+            quantity:1
+        }
+        user.cart.push(item);
         dispatch(loginSuccess(user));
         console.log(id);
         toast.success("Product Added to Cart");

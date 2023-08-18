@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
-import Logo from "../images/L.svg";
+import Logo from "../images/Lo.svg";
 
 function Navbar(){
     return(
@@ -12,8 +12,9 @@ function Navbar(){
                     <i style={{color:"black"}} className="flex flex-col justify-center fa-solid fa-magnifying-glass"></i>
                 </div> */}
                 <Search/>
-                <div style={{left:"50%"}} className="flex absolute bg-[#141619] p-3 rounded-full">
-                    <h2 className="text-3xl text-white">DE</h2>
+                <div style={{left:"50%"}} className="flex absolute p-2 bg-white rounded-full">
+                    <Link to="/"><img className="w-14 h-14" src={Logo} alt="" /></Link>
+                    {/* <h2 className="text-3xl text-white">DE</h2> */}
                     {/* <img className="flex w-20 h-20" src={Logo} alt="" /> */}
                 </div>
 

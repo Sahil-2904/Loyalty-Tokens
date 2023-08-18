@@ -1,18 +1,50 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import { Link } from 'react-router-dom';
 import products from "../products";
-function Full(props){
-    const user = props.user;
-    let price  = 0;
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess, logout } from '../authActions';
+function Full(){
+    
+    const user = useSelector((state) => state.auth.user);
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const dispatch = useDispatch();
+    const [cart,setCart] = useState(user.cart);
+    useEffect(() => {
+        setCart(user.cart); // Update the local cart state
+    }, [user.cart]);
+
+    let p  = 0;
     for(let i=0;i<user.cart.length;i++){
-        let id = user.cart[i];
-        price += products[id-1].price;
+        console.log(user.cart[i]);
+        let id = user.cart[i].id;
+        let q = user.cart[i].quantity;
+        // console.log(id,q);
+        p += (q * products[id-1].price);
     }
+    const removeCart = (e,item) => {
+        console.log(item);
+        const updatedCart = user.cart.filter((i) => i != item);
+        console.log(updatedCart);
+        setCart(updatedCart);
+        // user.cart = cart;
+        dispatch(loginSuccess({...user,cart:updatedCart}));
+    }
+    // useEffect(() => {
+
+    // },[user]);
 
     return (
-        <div className='flex flex-col gap-2'>
-            <h2 className='flex text-3xl p-3 justify-end'>Total price: {price}</h2>
-            <div className="overflow-x-auto m-5">
+        <div className='flex flex-col gap-2 p-12'>
+            <div className='flex gap-2 p-5'>
+                <div className='flex justify-left w-1/2'>
+                    <h2 className='flex text-5xl p-3'>My Cart  {(user.cart.length === 0 ? null : `(${user.cart.length})`)}</h2>
+                </div>
+                <div className='flex flex-col justify-end w-1/2'>
+                    <h2 className='flex text-3xl p-3 justify-end'>Total price: {p}</h2>
+                </div>
+                
+            </div>
+            <div className="overflow-x-auto p-5">
                 <table className="table">
                 {/* head */}
                 <thead>
@@ -26,7 +58,9 @@ function Full(props){
                 <tbody>
                 {/* row 1 */}
                 {
-                    user.cart.map((i,index) => {
+                    user.cart.map((item,index) => {
+                        // console.log(i);
+                        let i = item.id,quantity = item.quantity;
                         return (
                             <tr key={index}>
                                 <td className='flex justify-center'>
@@ -45,13 +79,19 @@ function Full(props){
                                 <td className=''>
                                     <p className='flex text-3xl'>{products[i-1].title}</p>
                                     <br/>
-                                    <span className="flex flex-wrap w-full">{products[i-1].desc}</span>
+                                    {/* {products[i-1].desc} */}
+                                    <div className='flex gap-5'>
+                                        <button className='flex flex-col justify-center p-3'>-</button>
+                                        <span className="flex text-xl p-3">{quantity}</span>
+                                        <button className='flex flex-col justify-center p-3'>+</button>
+                                    </div>
+                                    
                                 </td>
                                 <td>
                                     <p>Rs {products[i-1].price}</p>
                                 </td>
                                 <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
+                                <button onClick={(e) => removeCart(e,item)} className="btn btn-ghost btn-xs"><i class="fa-solid fa-x"></i></button>
                                 </th>
                             </tr>
                         )
