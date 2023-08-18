@@ -1,31 +1,30 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import cart from "../images/cart.png";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginSuccess, logout } from '../authActions.js';
-import Search from "./Search";
-import Logo from "../images/Lo.svg";
+import cart from '../images/cart.png';
+import { loginSuccess, logout } from '../authActions';
+import Search from './Search';
+import Logo from '../images/Lo.svg';
 
-function ANavbar(){
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    const dispatch = useDispatch();
-    const handleLogout = () => {
-        dispatch(logout());
-    }
-    const user = useSelector((state) => state.auth.user);
-    return(
-        <>
-            <div className="flex justify-between p-5 bg-[#3778e2] bg-transparent backdrop-blur-lg top-0 sticky z-20">
-                {/* <div className="flex justify-between border border-sky-500 rounded-xl p-3 w-1/3  bg-white text-black">
+function ANavbar() {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+  const user = useSelector((state) => state.auth.user);
+  return (
+    <div className="flex justify-between p-5 bg-[#3778e2] bg-transparent backdrop-blur-lg top-0 sticky z-20">
+      {/* <div className="flex justify-between border border-sky-500 rounded-xl p-3 w-1/3  bg-white text-black">
                     <input className="flex outline-none w-full" type="search" placeholder="Search for products,brands and more" name="" id="" />
                     <i style={{color:"black"}} className="flex flex-col justify-center fa-solid fa-magnifying-glass"></i>
                 </div> */}
-                <Search/>
-                <div style={{left:"50%"}} className="flex absolute bg-[#141619] p-3 rounded-full">
-                    <Link to="/"><img className="w-12 h-12" src={Logo} alt="" /></Link>
-                    {/* <h2 className="text-3xl text-white">DE</h2> */}
-                </div>
-                {/* <div className="form-control">
+      <Search />
+      <div style={{ left: '50%' }} className="flex absolute bg-[#141619] p-3 rounded-full">
+        <Link to="/"><img className="w-12 h-12" src={Logo} alt="" /></Link>
+        {/* <h2 className="text-3xl text-white">DE</h2> */}
+      </div>
+      {/* <div className="form-control">
                     <div className="input-group">
                         <input type="text" placeholder="Search…" className="input input-bordered" />
                         <button className="btn btn-square">
@@ -33,25 +32,30 @@ function ANavbar(){
                         </button>
                     </div>
                 </div> */}
-                
-                <div className="flex gap-5 justify-center">
-                    <div className="flex flex-col justify-center text-black rounded-full">
-                        {/* <h2 className="text-3xl bg-orange-500 p-1 rounded-full">C</h2> */}
-                        <p className="flex text-xl text-yellow-400">{user.loyalty}</p>
-                    </div>
-                    <div className="avatar">
-                        <Link to="/profile">
-                            <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
-                                <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase">{user.name.slice(0,2)}</p>
 
-                                {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
-                            </div>
-                        </Link>
-                        
-                    </div>
-                    <Link to="/mycart"><button className="flex justify-center text-2xl p-2 rounded-box gap-2"><img src={cart} className="flex w-8 h-8" />My Cart</button></Link>
-                    {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
-                    {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl" onClick={()=>window.my_modal_3.showModal()}>Login</button>
+      <div className="flex gap-5 justify-center">
+        <div className="flex flex-col justify-center text-black rounded-full">
+          {/* <h2 className="text-3xl bg-orange-500 p-1 rounded-full">C</h2> */}
+          <p className="flex text-xl text-yellow-400">{user.loyalty}</p>
+        </div>
+        <div className="avatar">
+          <Link to="/profile">
+            <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
+              <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase">{user.name.slice(0, 2)}</p>
+
+              {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
+            </div>
+          </Link>
+
+        </div>
+        <Link to="/mycart">
+          <button className="flex justify-center text-2xl p-2 rounded-box gap-2">
+            <img src={cart} className="flex w-8 h-8" />
+            My Cart
+          </button>
+        </Link>
+        {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
+        {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl" onClick={()=>window.my_modal_3.showModal()}>Login</button>
                     <dialog id="my_modal_3" className="modal bg-black/10">
                         <form method="dialog" className="modal-box flex flex-col gap-7 bg-white text-black">
                             <div className="flex justify-center w-full join">
@@ -67,7 +71,7 @@ function ANavbar(){
                                 </div>
                             </div>
                             <hr className="flex w-3/4 mx-auto" />
-                            <a className="flex justify-center p-3" href="/auth/google"> 
+                            <a className="flex justify-center p-3" href="/auth/google">
                                 <div className="flex gap-x-5 bg-slate-100 rounded-2xl p-3 hover:bg-blue-500 hover:text-slate-200 transition-all duration-300 ease-out">
                                     <img className="w-10 h-10" src={Google} alt="google"/>
                                     <h1 className="text-xl flex flex-col justify-center">Sign In with Google</h1>
@@ -75,11 +79,10 @@ function ANavbar(){
                             </a>
                         </form>
                     </dialog> */}
-                    <Link to="/" className="flex flex-col justify-center text-xl btn btn-outline btn-success"><button onClick={handleLogout}>Logout</button></Link>
-                </div>
-            </div>
-        </>
-    )
+        <Link to="/" className="flex flex-col justify-center text-xl btn btn-outline btn-success"><button onClick={handleLogout}>Logout</button></Link>
+      </div>
+    </div>
+  );
 }
 
 export default ANavbar;

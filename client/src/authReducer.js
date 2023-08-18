@@ -2,7 +2,7 @@
 // const initialState = {
 //     isAuthenticated: false,
 //   };
-  
+
 //   const authReducer = (state = initialState, action) => {
 //     switch (action.type) {
 //       case 'SET_AUTHENTICATED':
@@ -14,9 +14,9 @@
 //         return state;
 //     }
 //   };
-  
+
 //   export default authReducer;
-  
+
 import { LOGIN_SUCCESS, LOGOUT } from './authActions';
 
 // Initial state

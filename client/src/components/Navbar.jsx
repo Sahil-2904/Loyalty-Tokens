@@ -1,28 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Search from "./Search";
-import Logo from "../images/Lo.svg";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Search from './Search';
+import Logo from '../images/Lo.svg';
 
-function Navbar(){
-    return(
-        <>
-            <div className="flex justify-between p-5 bg-[#3778e2] bg-transparent backdrop-blur-lg top-0 sticky z-20">
-                {/* <div className="flex justify-between border border-sky-500 rounded-xl p-3 w-1/3  bg-white text-black">
+function Navbar() {
+  return (
+    <div className="flex justify-between p-5 bg-[#3778e2] bg-transparent backdrop-blur-lg top-0 sticky z-20">
+      {/* <div className="flex justify-between border border-sky-500 rounded-xl p-3 w-1/3  bg-white text-black">
                     <input className="flex outline-none w-full" type="search" placeholder="Search for products,brands and more" name="" id="" />
                     <i style={{color:"black"}} className="flex flex-col justify-center fa-solid fa-magnifying-glass"></i>
                 </div> */}
-                <Search/>
-                <div style={{left:"50%"}} className="flex absolute p-2 bg-white rounded-full">
-                    <Link to="/"><img className="w-14 h-14" src={Logo} alt="" /></Link>
-                    {/* <h2 className="text-3xl text-white">DE</h2> */}
-                    {/* <img className="flex w-20 h-20" src={Logo} alt="" /> */}
-                </div>
+      <Search />
+      <div style={{ left: '50%' }} className="flex absolute p-2 bg-white rounded-full">
+        <Link to="/"><img className="w-14 h-14" src={Logo} alt="" /></Link>
+        {/* <h2 className="text-3xl text-white">DE</h2> */}
+        {/* <img className="flex w-20 h-20" src={Logo} alt="" /> */}
+      </div>
 
-                
-                <div className="flex gap-5 justify-center">
-                    <Link to="/login" className="btn"><button className="flex flex-col justify-center text-2xl p-2 rounded-box">Login</button></Link>
-                    {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
-                    {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl" onClick={()=>window.my_modal_3.showModal()}>Login</button>
+      <div className="flex gap-5 justify-center">
+        <Link to="/login" className="btn"><button className="flex flex-col justify-center text-2xl p-2 rounded-box">Login</button></Link>
+        {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
+        {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl" onClick={()=>window.my_modal_3.showModal()}>Login</button>
                     <dialog id="my_modal_3" className="modal bg-black/10">
                         <form method="dialog" className="modal-box flex flex-col gap-7 bg-white text-black">
                             <div className="flex justify-center w-full join">
@@ -38,7 +36,7 @@ function Navbar(){
                                 </div>
                             </div>
                             <hr className="flex w-3/4 mx-auto" />
-                            <a className="flex justify-center p-3" href="/auth/google"> 
+                            <a className="flex justify-center p-3" href="/auth/google">
                                 <div className="flex gap-x-5 bg-slate-100 rounded-2xl p-3 hover:bg-blue-500 hover:text-slate-200 transition-all duration-300 ease-out">
                                     <img className="w-10 h-10" src={Google} alt="google"/>
                                     <h1 className="text-xl flex flex-col justify-center">Sign In with Google</h1>
@@ -46,11 +44,10 @@ function Navbar(){
                             </a>
                         </form>
                     </dialog> */}
-                    
-                </div>
-            </div>
-        </>
-    )
+
+      </div>
+    </div>
+  );
 }
 
 export default Navbar;
