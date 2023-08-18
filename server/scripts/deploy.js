@@ -4,23 +4,32 @@
 // You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // // global scope, and execute the script.
-// const hre = require("hardhat");
+const {ethers} = require("hardhat");
+const fs = require("fs");
+const path = require("path");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  
 
-  const lockedAmount = hre.ethers.parseEther("0.001");
+  const loyaltyToken = await ethers.deployContract("LoyaltyToken");
 
-  const lock = await hre.ethers.deployContract("LoyaltyToken");
-
-  await lock.waitForDeployment();
+  await loyaltyToken.waitForDeployment();
 
   console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
+    `Loyalty Token deployed to ${loyaltyToken.target}`
   );
+
+  const data = {
+    address: loyaltyToken.target,
+    abi: (loyaltyToken.interface.format("json"))
+  };
+  try{  
+    let filePath = path.join(__dirname, '..', '..', 'client','src','abstract', 'LoyaltyToken.json');
+    fs.writeFileSync(filePath, JSON.stringify(data));
+  }
+  catch(error){
+    console.log(error);
+  }
 }
 
 // We recommend this pattern to be able to use async/await everywhere

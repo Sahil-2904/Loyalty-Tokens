@@ -124,3 +124,177 @@ describe("Lock", function () {
     });
   });
 });
+const { expect } = require('chai');
+const { ethers } = require("hardhat")
+
+describe('LoyaltyToken', function () {
+  let LoyaltyToken;
+  let loyaltyToken;
+  let owner;
+  let seller;
+  let admin;
+
+  before(async function () {
+    [owner, seller, admin, customer] = await ethers.getSigners();
+    console.log(owner);
+    console.log(seller);
+    console.log(admin);
+    LoyaltyToken = await ethers.getContractFactory('LoyaltyToken');
+    loyaltyToken = await LoyaltyToken.connect(owner).deploy();
+    await loyaltyToken.waitForDeployment();
+  });
+
+  it('should deploy the contract', async function () {
+    expect(loyaltyToken.address).to.not.equal(0);
+  });
+
+  it('should mint tokens', async function () {
+    // const amountToMint = ethers.parseEther('1000'); // Mint 100 tokens
+    // // console.log(amountToMint);
+    // await loyaltyToken.mint(amountToMint);
+    const balance = await loyaltyToken.balanceOf(owner.address);
+
+    expect(balance).to.equal(1000000000000000000000n);
+  });
+  it('should mint tokens to a specific address', async function () {
+    const amountToMint = ethers.parseEther('50'); // Mint 50 tokens
+    const recipient = customer.address;
+
+    await loyaltyToken.connect(owner).mintTo(recipient, amountToMint);
+    const balance = await loyaltyToken.balanceOf(recipient);
+
+    expect(balance).to.equal(amountToMint);
+  });
+
+  it('should burn tokens', async function () {
+    const initialBalance = await loyaltyToken.balanceOf(owner.address);
+    const amountToBurn = ethers.parseEther('30'); // Burn 30 tokens
+
+    await loyaltyToken.connect(owner).burnToken(owner.address, amountToBurn);
+    const updatedBalance = await loyaltyToken.balanceOf(owner.address);
+
+    expect(updatedBalance).to.equal(initialBalance-amountToBurn);
+  });
+
+  it('should redeem tokens', async function () {
+    const initialBalance = await loyaltyToken.balanceOf(customer.address);
+    const amountToRedeem = ethers.parseEther('20'); // Redeem 20 tokens
+
+    await loyaltyToken.connect(customer).redeemTokens(amountToRedeem);
+    const updatedBalance = await loyaltyToken.balanceOf(customer.address);
+
+    expect(updatedBalance).to.equal(initialBalance-(amountToRedeem));
+  });
+
+  it('should fetch transactions for a customer', async function () {
+    const customer = seller.address;
+
+    await loyaltyToken.connect(owner).mintTo(customer, ethers.parseEther('50'));
+
+    const transactions = await loyaltyToken.fetchTransactions(customer);
+    expect(transactions.length).to.equal(1);
+    expect(transactions[0].amount).to.equal(ethers.parseEther('50'));
+  });
+
+
+  it('should prevent unauthorized minting', async function () {
+    const unauthorized = admin.address;
+
+    await expect(loyaltyToken.connect(unauthorized).mint(ethers.parseEther('100')))
+      .to.be.revertedWith('Only Default Admin can create a supply');
+  });
+
+  it('should prevent minting to the zero address', async function () {
+    await expect(loyaltyToken.connect(owner).mintTo(ethers.constants.AddressZero, ethers.parseEther('50')))
+      .to.be.revertedWith('Cannot transfer tokens to zero address');
+  });
+
+  it('should prevent burning from the zero address', async function () {
+    await expect(loyaltyToken.connect(owner).burnToken(ethers.constants.AddressZero, ethers.parseEther('30')))
+      .to.be.revertedWith('Cannot burn tokens from the zero address');
+  });
+
+  it('should prevent non-admin from assigning sellers', async function () {
+    const nonAdmin = seller.address;
+
+    await expect(loyaltyToken.connect(nonAdmin).assignSeller(seller.address))
+      .to.be.revertedWith('Only Default Admin can assign Admin Rights');
+  });
+
+  it('should prevent non-admin from removing sellers', async function () {
+    const nonAdmin = seller.address;
+
+    await expect(loyaltyToken.connect(nonAdmin).removeSeller(seller.address))
+      .to.be.revertedWith('Only Default Admin can revoke Admin Rights');
+  });
+
+  it('should prevent non-admin from assigning admins', async function () {
+    const nonAdmin = seller.address;
+
+    await expect(loyaltyToken.connect(nonAdmin).assignAdmin(admin.address))
+      .to.be.revertedWith('Only Default Admin can assign Admin Rights');
+  });
+
+  it('should prevent non-admin from removing admins', async function () {
+    const nonAdmin = seller.address;
+
+    await expect(loyaltyToken.connect(nonAdmin).removeAdmin(admin.address))
+      .to.be.revertedWith('Only Default Admin can revoke Admin Rights');
+  });
+
+  it('should prevent non-sellers from minting tokens', async function () {
+    const nonSeller = admin.address;
+
+    await expect(loyaltyToken.connect(nonSeller).mintTo(nonSeller, ethers.utils.parseEther('50')))
+      .to.be.revertedWith('You don\'t have the rights to mint Tokens');
+  });
+
+  it('should validate and burn expired tokens', async function () {
+    const customer = seller.address;
+
+    await loyaltyToken.connect(owner).mintTo(customer, ethers.utils.parseEther('100'));
+    const transId = await loyaltyToken._transactionId();
+
+    // Fast-forward time by interval (simulating token expiration)
+    await ethers.provider.send('evm_increaseTime', [interval]);
+    await ethers.provider.send('evm_mine');
+
+    await loyaltyToken.validateTokens(transId);
+    const balance = await loyaltyToken.balanceOf(customer);
+
+    expect(balance).to.equal(0);
+  });
+
+  it('should prevent non-admin from validating tokens', async function () {
+    const nonAdmin = seller.address;
+    const customer = seller.address;
+
+    await loyaltyToken.connect(owner).mintTo(customer, ethers.utils.parseEther('50'));
+
+    const transId = await loyaltyToken._transactionId();
+
+    await expect(loyaltyToken.connect(nonAdmin).validateTokens(transId))
+      .to.be.revertedWith('Only for Credited Tokens');
+  });
+
+  it('should prevent customers from assigning sellers', async function () {
+    const customer = seller.address;
+
+    await expect(loyaltyToken.connect(customer).assignSeller(seller.address))
+      .to.be.revertedWith('You don\'t have admin rights!');
+  });
+
+  it('should prevent customers from redeeming more tokens than their balance', async function () {
+    const customer = seller.address;
+
+    await loyaltyToken.connect(owner).mintTo(customer, ethers.utils.parseEther('50'));
+
+    await expect(loyaltyToken.connect(customer).redeemTokens(ethers.utils.parseEther('60')))
+      .to.be.revertedWith('Not enough Tokens!');
+  });
+
+
+
+  // Write more test cases here based on your contract's functions and logic
+  // For example, test minting to a specific address, burning tokens, etc.
+});
