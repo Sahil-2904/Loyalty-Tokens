@@ -33,12 +33,19 @@ function ANavbar(){
                 </div> */}
                 
                 <div className="flex gap-5 justify-center">
+                    <div className="flex flex-col justify-center text-black rounded-full">
+                        {/* <h2 className="text-3xl bg-orange-500 p-1 rounded-full">C</h2> */}
+                        <p className="flex text-xl text-yellow-400">{user.loyalty}</p>
+                    </div>
                     <div className="avatar">
-                        <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
-                            <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase">{user.name.slice(0,2)}</p>
+                        <Link to="/profile">
+                            <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
+                                <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase">{user.name.slice(0,2)}</p>
 
-                            {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
-                        </div>
+                                {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
+                            </div>
+                        </Link>
+                        
                     </div>
                     <Link to="/mycart"><button className="flex justify-center text-2xl p-2 rounded-box gap-2"><img src={cart} className="flex w-8 h-8" />My Cart</button></Link>
                     {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
