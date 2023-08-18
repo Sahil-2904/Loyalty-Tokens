@@ -13,7 +13,7 @@ function Home(){
 
     return (
         <>
-            {isAuthenticated ? <ANavbar/> : <Navbar/>}
+            {isAuthenticated ? <ANavbar className=""/> : <Navbar/>}
             <Carousel />
             <Categories />
             <Prod/>

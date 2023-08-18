@@ -8,8 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess, logout } from '../authActions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import bcrypt, { genSaltSync } from "bcryptjs";
 function Login(){
     const [show,setShow] = useState(false);
+    const salt = genSaltSync(10);
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch();
@@ -21,6 +23,7 @@ function Login(){
     },[isAuthenticated]);
 
     const handleLogin = async () => {
+      const hashedpassword = bcrypt.hashSync(password,salt);
       try{
         const response = await fetch("http://localhost:3000/login",{
           method:"POST",

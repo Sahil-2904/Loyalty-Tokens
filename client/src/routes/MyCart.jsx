@@ -15,17 +15,15 @@ function MyCart(){
     return (
         <>
             {isAuthenticated ? <ANavbar/> : <Navbar/> }
-            
-            <div className='flex flex-col p-16'>
-                <div className='flex justify-left'>
-                    <h2 className='flex text-5xl p-3'>My Cart  {(user.cart.length === 0 ? null : `(${user.cart.length})`)}</h2>
-                </div>
-                <div>
+            <div>
                     {
-                        (user.cart.length === 0) ? <Empty/> : <Full user={user}/> 
+                        (user.cart.length === 0) ? <Empty /> : <Full /> 
                     }
-                </div>
             </div>
+            {/* <div className='flex p-16'>
+                
+                
+            </div> */}
             <Footer/>
         </>
        
