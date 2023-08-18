@@ -6,6 +6,8 @@ import Google from "../images/google.png";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess, logout } from '../authActions';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Login(){
     const [show,setShow] = useState(false);
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -34,6 +36,7 @@ function Login(){
           dispatch(loginSuccess(data.user)); // Dispatch the action to login success state
         }
         else{
+          toast.warning(data.message);
           console.log(data.message);
         }
       }
@@ -65,7 +68,6 @@ function Login(){
                               <h1 className="text-2xl flex justify-center w-28">Log In</h1>
                           </div>
                       </Link>
-                        
                     </button>
                 </div>
                 <hr className='flex w-1/2 mx-auto' />
@@ -79,6 +81,15 @@ function Login(){
                     <Link to="/signup"><p className='flex text-xl'>New User? Create an account</p></Link>
                 </div>
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={1500}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                theme="dark"
+            />
         </div>
     );
 }

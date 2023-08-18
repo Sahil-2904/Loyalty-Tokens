@@ -1,16 +1,25 @@
 import React from 'react';
 import products from '../products';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess, logout } from '../authActions.js';
+import { ToastContainer, toast } from 'react-toastify';
 import ANavbar from './ANavbar';
 function Product(){
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const {id} = useParams();
     console.log(id);
     const pro = products[id - 1];
+    const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
+    const handleClick = (e,id) => {
+        user.cart.push(id);
+        dispatch(loginSuccess(user));
+        console.log(id);
+        toast.success("Product Added to Cart");
+    }
     return (
         <>
             {isAuthenticated ? <ANavbar/> : <Navbar/> }
@@ -28,11 +37,21 @@ function Product(){
                             <p className='flex text-xl'>Rating: {pro.rating}</p>
                         </div>
                         <div className='flex gap-5 justify-start'>
-                            <button className='btn btn-info'>Place Order</button>
-                            <button className='btn btn-outline btn-warning'>Add to Cart</button>
+                            {isAuthenticated ? <Link to="/mycart"><button onClick={ e => handleClick(e,pro.id)} className='btn btn-info'>Place Order</button></Link> : <Link to="/login"><button className='btn btn-info'>Place Order</button></Link>} 
+                            {isAuthenticated ? <button onClick={ e => handleClick(e,pro.id)} className='btn btn-outline btn-warning'>Add To Cart</button> :<Link to="/login"><button className='btn btn-outline btn-warning'>Add To Cart</button></Link>}
+                            {/* <button className='btn btn-outline btn-warning'>Add to Cart</button> */}
                         </div>
                     </div>
                 </div>
+                <ToastContainer
+                position="bottom-right"
+                autoClose={1500}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                theme="dark"
+            />
             </div>
             
             
