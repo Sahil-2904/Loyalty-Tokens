@@ -1,12 +1,20 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const bcrypt = require("bcryptjs");
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
+import bodyParser from 'body-parser';
+
 const salt = bcrypt.genSaltSync(10);
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+
+import connectDB from './database/index.js';
+import User from './models/userSchema.js';
+
+connectDB();
+
 
 let users = [
     {

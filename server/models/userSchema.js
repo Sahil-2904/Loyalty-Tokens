@@ -5,18 +5,18 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
-    username: {
+    id: {
       type: String,
       required: true,
       trim: true,
-      unique: true,
+      // unique: true,
       index: true,
       lowercase: true
     },
     email: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
       trim: true,
     },
     password: {
@@ -27,13 +27,13 @@ const userSchema = new Schema(
     name: {
       type: String,
     },
-    phone: {
+    contact: {
       type: String,
     },
     type: {
       type: String,
-      default: "user",
-      enum: ["superAdmin", "admin", "seller", "user"],
+      default: "customer",
+      enum: ["superAdmin", "admin", "seller", "customer"],
     },
     walletAddress: {
       type: String,
@@ -43,23 +43,31 @@ const userSchema = new Schema(
       type:String,
       default: 'https://i.postimg.cc/g0mqG4t3/bronze.png'
   },
-    challenges:[
-        {
-          challenge:{
-              type:String,
-            },
-          completed: {
-              type: Boolean
-            },
-            mark:{
-              type: Number
-            }
-          }
-        ],
+    // challenges:[
+    //     {
+    //       challenge:{
+    //           type:String,
+    //         },
+    //       completed: {
+    //           type: Boolean
+    //         },
+    //         mark:{
+    //           type: Number
+    //         }
+    //       }
+    //     ],
     referalCode:{
         type:String,
         default: uuidv4().substring(0, 8)
       },
+      cart:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Cart",
+      },
+      order:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order",
+      }
   },
   { timestamps: true },
   
