@@ -3,17 +3,22 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import bodyParser from 'body-parser';
-
+import dotenv from 'dotenv';
 const salt = bcrypt.genSaltSync(10);
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+dotenv.config();
 
 import connectDB from './database/index.js';
 import User from './models/userSchema.js';
 
-connectDB();
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD; 
+
+
+connectDB(username, password);
 
 
 let users = [

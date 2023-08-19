@@ -29,8 +29,14 @@ function Profile() {
         LoyaltyToken.abi,
         signer,
       );
-      const log = await contract.fetchTransactions(addr);
-      console.log(log);
+      console.log(contract);
+      console.log(addr);
+      console.log(LoyaltyToken.abi);
+      const logs = await contract.fetchTransactions(addr);
+      console.log(logs);
+      // contract.on('tokenMinted', function (event) {
+      //   console.log(`Result is ${event}`);
+      // });
     } catch (err) {
       console.error(err);
     }
@@ -46,7 +52,6 @@ function Profile() {
         setCurrAddress(address);
         dispatch(wallet());
         user.walletadd = address;
-        // getLog();
         dispatch(loginSuccess(user));
         // console.log(connected);
         // setConnected(true);
@@ -81,6 +86,7 @@ function Profile() {
       // setConnected(true);
       // console.log(connected);
       setCurrAddress(ethereum.selectedAddress);
+      getLog();
       user.walletadd = ethereum.selectedAddress;
       dispatch(loginSuccess(user));
     }
@@ -92,6 +98,8 @@ function Profile() {
     return () => {
       if (ethereum) {
         ethereum.removeAllListeners('accountsChanged');
+        // Remove the event listener
+        // contract.removeAllListeners();
       }
     };
   }, []);
@@ -187,7 +195,6 @@ function Profile() {
           isConnected ? <Link to="/mycart"><button className="flex text-4xl p-5 text-black rounded-3xl">My Cart</button></Link> : <></>
         }
 
-        {/* </Link> */}
       </div>
       <Footer />
     </>

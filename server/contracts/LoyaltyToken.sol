@@ -116,6 +116,37 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
         return true;
     }
 
+    function mintFor(address to, uint256 amount) external returns (bool) {
+        require(to != address(0), "Cannot transfer tokens to zero address");
+
+        _transactionId.increment();
+        uint256 newTransId = _transactionId.current();
+        _mint(to, amount);
+        balanceFor[to] += amount;
+        uint256 mintTime = block.timestamp;
+        transactionLog[newTransId] = transaction(
+            newTransId,
+            to,
+            amount,
+            amount,
+            mintTime,
+            true,
+            "Token Recieved for Purchase"
+        );
+
+        emit tokenMinted(
+            newTransId,
+            to,
+            amount,
+            amount,
+            mintTime,
+            true,
+            "Tokens Recieved for Purchase"
+        );
+
+        return true;
+    }
+
     function burnToken(
         address from,
         uint256 amount
