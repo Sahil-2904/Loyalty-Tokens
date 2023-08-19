@@ -32,7 +32,7 @@ const userSchema = new Schema(
       default: "customer",
       enum: ["superAdmin", "admin", "seller", "customer"],
     },
-    walletAddress: {
+    wallet: {
       type: String,
       default:"0x",
       unique:false
