@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import products from '../products';
 import { loginSuccess, logout, wallet,disconnectWallet } from '../authActions';
+import Admin from "../routes/Admin";
 
 function Full() {
   const user = useSelector((state) => state.auth.user);
@@ -74,6 +75,15 @@ function Full() {
   // useEffect(() => {
 
   // },[user]);
+  const handleSuccess = async () => {
+    const response = await fetch("http://localhost:3000/transactions",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+    })
+  }
 
   return (
     <div className="flex flex-col gap-2 p-12">
@@ -186,7 +196,7 @@ function Full() {
                 }
       {/* </div> */}
       <div className="flex justify-center p-5">
-        { isConnected ? <Link to="/success"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl">Place Order</button></Link>
+        { isConnected ? <Link onClick={handleSuccess} to="/success"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl">Place Order</button></Link>
  : <Link to="/profile"><button className="flex text-4xl p-5 bg-green-600 text-black/90 rounded-3xl">Connect Your Wallet</button></Link>}
       </div>
     </div>

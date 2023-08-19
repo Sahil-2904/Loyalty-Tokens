@@ -43,9 +43,17 @@ let users = [
         walletadd:"0x"
     }
 ];
+const transactions =[];
 
 app.get("/users",(req,res) => {
     res.send(users);
+})
+app.get("/transactions",(req,res) => {
+    res.send(transactions);
+})
+app.post("/transactions",(req,res) => {
+    console.log(req.body);
+    transactions.push(req.body);
 })
 app.get("/users/:id",(req,res) => {
     console.log(req.params['id']);
