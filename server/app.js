@@ -5,6 +5,13 @@ import bcrypt from 'bcryptjs';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import products from '../client/src/products.js';
+import session from 'express-session';
+import connectDB from './database/index.js';
+import User from './models/userSchema.js';
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+
+
 const salt = bcrypt.genSaltSync(10);
 const app = express();
 
@@ -12,21 +19,60 @@ app.use(cors());
 app.use(bodyParser.json());
 dotenv.config();
 
-import connectDB from './database/index.js';
-import User from './models/userSchema.js';
+app.use(session({
+    secret: "LongKey",
+    resave: false,
+    saveUninitialized: false,
+}));
 
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await User.findById(id);
+        done(null, user);
+    } catch (err) {
+        console.log(err);
+        done(err, null);
+    }
+});
+
+passport.use(new LocalStrategy(
+    { usernameField: 'email' }, // If your email field is different, adjust this
+    async (email, password, done) => {
+      try {
+        const user = await User.findOne({ email });
+  
+        if (!user) {
+          return done(null, false, { message: 'Incorrect email.' });
+        }
+  
+        // if (!bcrypt.compareSync(password, user.password)) {
+        //   return done(null, false, { message: 'Incorrect password.' });
+        // }
+  
+        return done(null, user);
+      } catch (err) {
+        return done(err);
+      }
+    }
+  ));
+  
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD; 
 
 
 connectDB(username, password);
 
-
-
 const transactions =[];
 
 app.get("/users",async (req,res)=>{
-    // console.log(User.db.collections);
     try{
         const users = await User.find({}).exec();
         res.send(users);
@@ -55,30 +101,17 @@ app.post("/signup",async(req,res) => {
     const response = await fetch("http://localhost:3000/users");
     const users = await response.json();
     const user = users.find((user) => user.email === req.body.email)
-    if(!user){
+    if(!user){  
         res.status(201).json({ message: "User created successfully" });
         const newUser = req.body;
-        const user = new User(newUser);
-        const result = await User.insertMany([newUser]);
-        // await user.save();
+            const user = new User(newUser);
+            const result = await User.insertMany([newUser]);
+        passport.authenticate('local');
     }
     else{
         res.status(401).json({message:"User Already Exists"});
     }
     
-    // try {
-        
-    
-    //     // await user.save();
-    //     res.send("User created successfully");
-    //   } catch (error) {
-    //     console.error("Error creating user:", error);
-    //     res.status(500).send("Error creating user");
-    //   }
-    // users.push(req.body);
-    // console.log(users);
-    
-    // users = users;
 })
 
 app.post("/login",async(req,res) => {
@@ -90,15 +123,21 @@ app.post("/login",async(req,res) => {
     // console.log(email,hashedpassword,password);
     const user = users.find((user) => user.email === email && user.password === password)
     if(user){
+        passport.authenticate('local');
         res.status(200).json({user:user,message:"Login Successful"});
     }
     else{
         res.status(401).json({message:"Invalid Email or Password"});
     }
 });
-app.post("/logout",async(req,res)=>{
+app.post("/logout",async(req,res, next)=>{
     console.log("Logout");
-    res.status(200).json({message:"Error Logging Out"});
+    req.logout((err) => {
+        if (err) return next(err);
+        res.status(200).json({message:"Error Logging Out"});
+    });
+   
+        
 })
 
 
@@ -106,3 +145,7 @@ app.post("/logout",async(req,res)=>{
 app.listen(3000,(req,res) => {
     console.log("Server running at port 3000");
 })
+
+
+
+

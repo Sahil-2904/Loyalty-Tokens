@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { ethers } from 'ethers';
 import products from '../products';
-import { loginSuccess, logout, wallet,disconnectWallet } from '../authActions';
-import Admin from "../routes/Admin";
+import {
+  loginSuccess, logout, wallet, disconnectWallet,
+} from '../authActions';
+
+import Admin from '../routes/Admin';
+import LoyaltyToken from '../abstract/LoyaltyToken.json';
 
 function Full() {
   const user = useSelector((state) => state.auth.user);
@@ -15,7 +20,7 @@ function Full() {
   const [cart, setCart] = useState(user.cart);
   useEffect(() => {
     setCart(user.cart); // Update the local cart state
-    dispatch(loginSuccess({...user,cart:cart}));
+    dispatch(loginSuccess({ ...user, cart }));
     // dispatch(wallet());
   }, [user.cart]);
   // useEffect(() => {
@@ -54,7 +59,6 @@ function Full() {
       }
     };
   }, [currAddress]);
-  
 
   let p = 0;
   for (let i = 0; i < user.cart.length; i++) {
@@ -76,14 +80,31 @@ function Full() {
 
   // },[user]);
   const handleSuccess = async () => {
-    const response = await fetch("http://localhost:3000/transactions",{
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-    })
-  }
+    const response = await fetch('http://localhost:3000/transactions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+  };
+  const mintToken = async (address, amount) => {
+    try {
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const addr = await signer.getAddress();
+      const contract = new ethers.Contract(
+        LoyaltyToken.address,
+        LoyaltyToken.abi,
+        signer,
+      );
+      const result = await contract.mintFor(addr, amount);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-2 p-12 pt-5">
@@ -97,7 +118,11 @@ function Full() {
         </div>
         <div className="flex flex-col justify-end w-1/2">
           <h2 className="flex text-3xl p-3 justify-end">
-            <span className='bg-[#141619] p-5 text-white rounded-xl opacity-90'><span className="font-bold">Total Price:&nbsp;</span>₹{p}</span>
+            <span className="bg-[#141619] p-5 text-white rounded-xl opacity-90">
+              <span className="font-bold">Total Price:&nbsp;</span>
+              ₹
+              {p}
+            </span>
           </h2>
         </div>
 
@@ -140,8 +165,11 @@ function Full() {
                             {/* {products[i-1].desc} */}
                             <div className="flex gap-5 ms-5">
                               {/* <button onClick={(e) => removeProduct(e,item)} className="flex flex-col justify-center p-3 minus" >-</button> */}
-                              <span className="flex text-xl p-0">₹ 
-                              {products[i - 1].price}</span>
+                              <span className="flex text-xl p-0">
+                                ₹
+                                {products[i - 1].price}
+
+                              </span>
                               {/* <button onClick={(e) => addProduct(e,item)} className="flex flex-col justify-center p-3">+</button> */}
                             </div>
 
@@ -152,7 +180,7 @@ function Full() {
                             </p>
                           </td>
                           <th>
-                            <button onClick={(e) => removeCart(e, item)} className="btn btn-ghost btn-lg"><i className="fa-solid fa-trash" style={{color: "red"}}/></button>
+                            <button onClick={(e) => removeCart(e, item)} className="btn btn-ghost btn-lg"><i className="fa-solid fa-trash" style={{ color: 'red' }} /></button>
                           </th>
                         </tr>
                       );
@@ -196,8 +224,8 @@ function Full() {
                 }
       {/* </div> */}
       <div className="flex justify-center p-5">
-        { isConnected ? <Link onClick={handleSuccess} to="/success"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl">Place Order</button></Link>
- : <Link to="/profile"><button className="flex text-3xl font-bold p-5 m-10 text-white bg-emerald-600 text-black/90 rounded-3xl">Connect Wallet</button></Link>}
+        { isConnected ? <Link onClick={handleSuccess} to="/success"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl" onClick={() => mintToken(currAddress, p)}>Place Order</button></Link>
+          : <Link to="/profile"><button className="flex text-3xl font-bold p-5 m-10 text-white bg-emerald-600 text-black/90 rounded-3xl">Connect Wallet</button></Link>}
       </div>
     </div>
   );
