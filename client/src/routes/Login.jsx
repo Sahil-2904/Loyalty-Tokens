@@ -7,13 +7,14 @@ import visible from '../images/show.png';
 import hidden from '../images/hide.png';
 import Log from '../images/login.png';
 import Google from '../images/google.png';
-import { loginSuccess, logout } from '../authActions';
+import { loginSuccess, logout, wallet } from '../authActions';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const [show, setShow] = useState(false);
   const salt = genSaltSync(10);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const connected = useSelector((state) => state.auth.connected);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');

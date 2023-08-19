@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import cart from '../images/cart.png';
-import { loginSuccess, logout } from '../authActions';
+import { loginSuccess, logout, wallet } from '../authActions';
 import Search from './Search';
 import Logo from '../images/Lo.svg';
+import Profile from "../images/Profile.png";
 
 function ANavbar() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -20,7 +21,7 @@ function ANavbar() {
                     <i style={{color:"black"}} className="flex flex-col justify-center fa-solid fa-magnifying-glass"></i>
                 </div> */}
       <Search />
-      <div style={{ left: '50%' }} className="flex absolute bg-[#141619] p-3 rounded-full">
+      <div style={{ left: '50%' }} className="flex absolute bg-[#141619] p-2 rounded-full">
         <Link to="/"><img className="w-12 h-12" src={Logo} alt="" /></Link>
         {/* <h2 className="text-3xl text-white">DE</h2> */}
       </div>
@@ -38,22 +39,42 @@ function ANavbar() {
           {/* <h2 className="text-3xl bg-orange-500 p-1 rounded-full">C</h2> */}
           <p className="flex text-xl text-yellow-400">{user.loyalty}</p>
         </div>
-        <div className="avatar">
-          <Link to="/profile">
-            <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
-              <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase">{user.name.slice(0, 2)}</p>
+        <div className="dropdown dropdown-hover dropdown-end">
+          <label tabIndex={0} className="m-10">
+              <div className="avatar">
+                  <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
+                    <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase">{user.name.slice(0, 2)}</p>
 
-              {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
+                    {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
+                  </div>
             </div>
-          </Link>
-
+          </label>
+          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 gap-1 mt-1">
+            <li>
+              <Link to="/profile">
+                <button className="flex justify-center text-xl rounded-box gap-2">
+                  <img src={Profile} className="flex w-8 h-8" />
+                  Profile
+                </button>
+              </Link>
+            </li>
+            <li>
+              <Link to="/mycart">
+                <button className="flex justify-center text-xl rounded-box gap-2">
+                  <img src={cart} className="flex w-8 h-8" />
+                  My Cart
+                </button>
+              </Link>
+            </li>
+            <li onClick={handleLogout}>
+              <Link to="/" className="flex flex-col justify-center text-xl btn btn-outline btn-success">
+                <button >Logout</button>
+              </Link>
+            </li>
+          </ul>
         </div>
-        <Link to="/mycart">
-          <button className="flex justify-center text-2xl p-2 rounded-box gap-2">
-            <img src={cart} className="flex w-8 h-8" />
-            My Cart
-          </button>
-        </Link>
+        
+        
         {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
         {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl" onClick={()=>window.my_modal_3.showModal()}>Login</button>
                     <dialog id="my_modal_3" className="modal bg-black/10">
@@ -79,7 +100,7 @@ function ANavbar() {
                             </a>
                         </form>
                     </dialog> */}
-        <Link to="/" className="flex flex-col justify-center text-xl btn btn-outline btn-success"><button onClick={handleLogout}>Logout</button></Link>
+        
       </div>
     </div>
   );

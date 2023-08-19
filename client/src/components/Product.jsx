@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import products from '../products';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { loginSuccess, logout } from '../authActions';
+import { loginSuccess, logout, wallet } from '../authActions';
 import ANavbar from './ANavbar';
 
 function Product() {
