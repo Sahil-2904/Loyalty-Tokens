@@ -9,6 +9,7 @@ import Log from '../images/login.png';
 import Google from '../images/google.png';
 import { loginSuccess, logout, wallet } from '../authActions.js';
 import 'react-toastify/dist/ReactToastify.css';
+import products from '../products';
 // import {sha256} from 'crypto-hash';
 function SignUp() {
   const salt = bcrypt.genSaltSync(10);
@@ -61,9 +62,10 @@ function SignUp() {
       password: hashedpassword,
       contact,
       cart: [],
-      loyalty: '100',
-      purchased: [],
-      walletadd: '',
+      // walletAddress: '',
+      type: 'customer',
+      order: [],
+
     };
     try {
       const response = await fetch('http://localhost:3000/signup', {

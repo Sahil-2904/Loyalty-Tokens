@@ -60,16 +60,15 @@ const OrderSchema = new Schema(
     totalPrice: {
       type: String,
     },
-    // buyer: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "User",
-    // },
-    vendor: {
+    buyer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    // vendor: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "User",
+    // },
   },
-  { timestamps: true }
 );
 
 const Order = mongoose.model("Order", OrderSchema);

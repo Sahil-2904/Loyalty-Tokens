@@ -10,8 +10,6 @@ const userSchema = new Schema(
       required: true,
       trim: true,
       // unique: true,
-      index: true,
-      lowercase: true
     },
     email: {
       type: String,
@@ -22,7 +20,6 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      min: 8,
     },
     name: {
       type: String,
@@ -37,11 +34,16 @@ const userSchema = new Schema(
     },
     walletAddress: {
       type: String,
-      unique: true,
+      default:"0x",
+      unique:false
     },
     badge:{
       type:String,
       default: 'https://i.postimg.cc/g0mqG4t3/bronze.png'
+  },
+  loyaltyToken:{
+    type:Number,
+    default:0
   },
     // challenges:[
     //     {
@@ -60,17 +62,29 @@ const userSchema = new Schema(
         type:String,
         default: uuidv4().substring(0, 8)
       },
-      cart:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Cart",
-      },
-      order:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Order",
-      }
+      cart:[
+        {
+          id:Number,
+          quantity:Number
+        }
+      ],
+      order:[
+        {
+          cart:[
+            {
+              id: Number,
+              quantity: Number
+            }
+          ],
+          totalPrice: Number,
+          paidAt: {
+            type: Date,
+            default: Date.now,
+          },
+        }
+      ]
   },
-  { timestamps: true },
-  
+
 );
 
 const User = mongoose.model("User", userSchema);

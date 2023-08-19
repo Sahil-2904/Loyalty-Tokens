@@ -29,9 +29,6 @@ function Profile() {
         LoyaltyToken.abi,
         signer,
       );
-      console.log(contract);
-      console.log(addr);
-      console.log(LoyaltyToken.abi);
       const logs = await contract.fetchTransactions(addr);
       console.log(logs);
       // contract.on('tokenMinted', function (event) {

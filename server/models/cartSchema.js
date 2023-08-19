@@ -8,11 +8,11 @@ const cartSchema = new mongoose.Schema({
     // },
     // cartItems: [
         // {
-            product: {
-                id: String,
-                // required: true,
-                ref: 'Product'
-            },
+            // product: {
+            //     id: String,
+            //     // required: true,
+            //     ref: 'Product'
+            // },
             quantity: {
                 type: Number,
                 default: 1

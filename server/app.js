@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import products from '../client/src/products.js';
 const salt = bcrypt.genSaltSync(10);
 const app = express();
 
@@ -21,42 +22,14 @@ const password = process.env.DB_PASSWORD;
 connectDB(username, password);
 
 
-let users = [
-    {
-        id:"1",
-        name:"Sahil",
-        email:"sahildhoot.29@gmail.com",
-        password:"$2a$10$kXTCghQ9zmV7bu5AQO5EduGG1XTl7c.16vB1l8wRXdjNFzQ4EB4bu",
-        contact:"9146045689",
-        cart:[{id:2,quantity:1},{id:6,quantity:1}],
-        loyalty:"100",
-        purchased:[],
-        walletadd:"0x"
-    },
-    {
-        id:"2",
-        name:"SD",
-        email:"s@gmail.com",
-        password:"DE",
-        contact:"9146045689",
-        cart:[{id:4,quantity:1}],
-        loyalty:"100",
-        purchased:[],
-        walletadd:"0x"
-    },
-    {
-        id:"3",
-        name:"S",
-        email:"d@gmail.com",
-        password:"$2a$10$kXTCghQ9zmV7bu5AQO5EduGG1XTl7c.16vB1l8wRXdjNFzQ4EB4bu",
-        contact:"9146045689",
-        cart:[],
-        loyalty:"100",
-        purchased:[],
-        walletadd:"0x"
-    }
-];
 const transactions =[];
+
+app.get("/",async (req,res)=>{
+    
+    // console.log(User.db.collections);
+    
+
+})
 
 app.get("/users",(req,res) => {
     res.send(users);
@@ -73,7 +46,7 @@ app.get("/users/:id",(req,res) => {
     const id = req.params['id'];
     res.send(users[id-1]);
 })
-app.post("/signup",(req,res) => {
+app.post("/signup",async(req,res) => {
     // console.log(req.body);
     const user = users.find((user) => user.email === req.body.email)
     if(!user){
@@ -82,8 +55,19 @@ app.post("/signup",(req,res) => {
     else{
         res.status(401).json({message:"User Already Exists"});
     }
-    users.push(req.body);
-    console.log(users);
+    const newUser = req.body;
+    try {
+        const user = new User(newUser);
+        const result = await User.insertMany([newUser]);
+    
+        // await user.save();
+        res.send("User created successfully");
+      } catch (error) {
+        console.error("Error creating user:", error);
+        res.status(500).send("Error creating user");
+      }
+    // users.push(req.body);
+    // console.log(users);
     
     // users = users;
 })
@@ -100,7 +84,10 @@ app.post("/login",(req,res) => {
         res.status(401).json({message:"Invalid Email or Password"});
         
     }
-})
+});
+
+
+
 app.listen(3000,(req,res) => {
     console.log("Server running at port 3000");
 })
