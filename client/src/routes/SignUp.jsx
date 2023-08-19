@@ -59,10 +59,9 @@ function SignUp() {
       id,
       name,
       email,
-      password: hashedpassword,
+      password: password,
       contact,
       cart: [],
-      // walletAddress: '',
       type: 'customer',
       order: [],
 

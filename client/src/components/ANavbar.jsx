@@ -11,8 +11,20 @@ import Profile from "../images/Profile.png";
 function ANavbar() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    const response = await fetch("http://localhost:3000/logout",{
+      method:'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    const res = await response.json();
+    if(response.ok){
+      dispatch(logout());
+    }
+    else{
+      console.log("Logout Error");
+    }
   };
   const user = useSelector((state) => state.auth.user);
   return (
