@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ethers } from 'ethers';
 import products from '../products';
-import {
-  loginSuccess, logout, wallet, disconnectWallet,
-} from '../authActions';
-import Admin from '../routes/Admin';
-import LoyaltyToken from '../abstract/LoyaltyToken.json';
+import { loginSuccess, logout, wallet,disconnectWallet } from '../authActions';
+import Admin from "../routes/Admin";
 
 function Full() {
   const user = useSelector((state) => state.auth.user);
@@ -19,7 +15,7 @@ function Full() {
   const [cart, setCart] = useState(user.cart);
   useEffect(() => {
     setCart(user.cart); // Update the local cart state
-    dispatch(loginSuccess({ ...user, cart }));
+    dispatch(loginSuccess({...user,cart:cart}));
     // dispatch(wallet());
   }, [user.cart]);
   // useEffect(() => {
@@ -58,6 +54,7 @@ function Full() {
       }
     };
   }, [currAddress]);
+  
 
   let p = 0;
   for (let i = 0; i < user.cart.length; i++) {
@@ -79,45 +76,28 @@ function Full() {
 
   // },[user]);
   const handleSuccess = async () => {
-    const response = await fetch('http://localhost:3000/transactions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
-  };
-  const mintToken = async (address, amount) => {
-    try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      const addr = await signer.getAddress();
+    const response = await fetch("http://localhost:3000/transactions",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+    })
+  }
 
-      const contract = new ethers.Contract(
-        LoyaltyToken.address,
-        LoyaltyToken.abi,
-        signer,
-      );
-      const result = await contract.mintFor(addr, amount);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
-    <div className="flex flex-col gap-2 p-12">
+    <div className="flex flex-col gap-2 p-12 pt-5">
+      {/* <div className="bg-[#141619] h-2"></div> */}
       <div className="flex gap-2 p-5">
         <div className="flex justify-left w-1/2">
-          <h2 className="flex text-5xl p-3">
+          <h2 className="flex text-6xl p-3 font-bold">
             My Cart
-            {(user.cart.length === 0 ? null : `(${user.cart.length})`)}
+            {(user.cart.length === 0 ? null : ` (${user.cart.length})`)}
           </h2>
         </div>
         <div className="flex flex-col justify-end w-1/2">
           <h2 className="flex text-3xl p-3 justify-end">
-            Total price:
-            {p}
+            <span className='bg-[#141619] p-5 text-white rounded-xl opacity-90'><span className="font-bold">Total Price:&nbsp;</span>₹{p}</span>
           </h2>
         </div>
 
@@ -126,11 +106,11 @@ function Full() {
         <table className="table">
           {/* head */}
           <thead>
-            <tr className="">
-              <th className="flex text-xl justify-left">Product</th>
-              <th className="text-xl">Title</th>
-              <th className="text-xl">Price</th>
-              <th className="text-xl">Remove</th>
+            <tr className="shadow-md">
+              <th className="flex text-xl justify-left ms-5 mb-5 mt-5">Product</th>
+              <th className="text-xl m-5">Title</th>
+              <th className="text-xl m-5">Quantity</th>
+              <th className="text-xl m-5">Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -140,7 +120,7 @@ function Full() {
                       // console.log(i);
                       const i = item.id; const { quantity } = item;
                       return (
-                        <tr key={index}>
+                        <tr key={index} className="shadow-md">
                           <td className="flex justify-center">
                             <div className="flex items-center space-x-3">
                               {/* <div className="avatar"> */}
@@ -155,24 +135,24 @@ function Full() {
                             </div>
                           </td>
                           <td className="">
-                            <p className="flex text-3xl">{products[i - 1].title}</p>
+                            <p className="flex text-3xl ms-5">{products[i - 1].title}</p>
                             <br />
                             {/* {products[i-1].desc} */}
-                            <div className="flex gap-5">
+                            <div className="flex gap-5 ms-5">
                               {/* <button onClick={(e) => removeProduct(e,item)} className="flex flex-col justify-center p-3 minus" >-</button> */}
-                              <span className="flex text-xl p-3">{quantity}</span>
+                              <span className="flex text-xl p-0">₹ 
+                              {products[i - 1].price}</span>
                               {/* <button onClick={(e) => addProduct(e,item)} className="flex flex-col justify-center p-3">+</button> */}
                             </div>
 
                           </td>
                           <td>
-                            <p>
-                              Rs
-                              {products[i - 1].price}
+                            <p className="text-xl ms-7">
+                              {quantity}
                             </p>
                           </td>
                           <th>
-                            <button onClick={(e) => removeCart(e, item)} className="btn btn-ghost btn-xs"><i className="fa-solid fa-x" /></button>
+                            <button onClick={(e) => removeCart(e, item)} className="btn btn-ghost btn-lg"><i className="fa-solid fa-trash" style={{color: "red"}}/></button>
                           </th>
                         </tr>
                       );
@@ -216,8 +196,8 @@ function Full() {
                 }
       {/* </div> */}
       <div className="flex justify-center p-5">
-        { isConnected ? <Link onClick={handleSuccess} to="/success"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl" onClick={() => mintToken(currAddress, p)}>Place Order</button></Link>
-          : <Link to="/profile"><button className="flex text-4xl p-5 bg-green-600 text-black/90 rounded-3xl">Connect Your Wallet</button></Link>}
+        { isConnected ? <Link onClick={handleSuccess} to="/success"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl">Place Order</button></Link>
+ : <Link to="/profile"><button className="flex text-3xl font-bold p-5 m-10 text-white bg-emerald-600 text-black/90 rounded-3xl">Connect Wallet</button></Link>}
       </div>
     </div>
   );

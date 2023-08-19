@@ -22,9 +22,9 @@ function Prod() {
     toast.success('Product Added to Cart');
   };
   return (
-    <div className="flex flex-col p-10 gap-10">
+    <div className="flex flex-col p-10 gap-10 bg-[#33313b] font-bold shadow-2xl">
       <div className="flex p-5 justify-center">
-        <h2 className="flex text-5xl">Top Picks</h2>
+        <h2 className="flex text-5xl text-white">Top Picks</h2>
       </div>
       {/* <div className='flex gap-10 justify-center'>
                 {
@@ -44,7 +44,7 @@ function Prod() {
                     pro.map((product, index) => {
                       const link = `products/${product.id}`;
                       return (
-                        <div key={index} className="carousel-item w-1/3 flex justify-center">
+                        <div key={index} className="carousel-item w-1/4 flex justify-center">
                           <div className="card w-96 bg-base-100 shadow-xl">
                             <figure className="flex w-72 h-72 mx-auto">
                               <img src={product.thumbnail} className="rounded-box object-contain" />
