@@ -17,16 +17,16 @@ function Search() {
     }
   };
   return (
-    <div className="flex justify-between border border-sky-500 rounded-xl p-3 w-1/3 bg-white text-black">
+    <div className="flex justify-between border border-gray-300 rounded-xl p-3 w-1/3 bg-white text-black shadow-md">
       <input onChange={(e) => handleChange(e)} className="flex outline-none w-full" type="search" placeholder="Search for products,brands and more" value={text} name="" id="" />
 
       {pro.length !== 0 && (
-      <div className="absolute w-[33%] bg-black mt-10 ml-[-15px] overflow-auto  max-h-96 rounded-xl">
+      <div className="absolute w-[33%] bg-gray-50 mt-11 ml-[-15px] overflow-y-scroll no-scrollbar max-h-96 rounded-xl">
         {
                                                     pro.map((product, index) => (
                                                       <Link to={product.link}>
-                                                        <div key={index} className="flex p-5 rounded-xl gap-5 bg-[#141619] text-white m-2 border border-sky-400">
-                                                          <div className="flex w-20 h-20">
+                                                        <div key={index} className="flex p-5 rounded-xl gap-5 m-2 border border-gray-200 hover:text-white hover:bg-[#33313b]">
+                                                          <div className="flex w-20 h-16">
                                                             <img className="object-contain" src={product.thumbnail} alt="" />
                                                           </div>
                                                           <div className="flex flex-col">

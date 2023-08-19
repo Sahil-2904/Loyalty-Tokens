@@ -5,6 +5,7 @@ import cart from '../images/cart.png';
 import { loginSuccess, logout, wallet } from '../authActions';
 import Search from './Search';
 import Logo from '../images/Lo.svg';
+import Coin from '../images/Coin.svg'
 import Profile from "../images/Profile.png";
 
 function ANavbar() {
@@ -37,13 +38,14 @@ function ANavbar() {
       <div className="flex gap-5 justify-center">
         <div className="flex flex-col justify-center text-black rounded-full">
           {/* <h2 className="text-3xl bg-orange-500 p-1 rounded-full">C</h2> */}
+          <img src={Coin} className="w-8 h-8" alt="" />
           <p className="flex text-xl text-yellow-400">{user.loyalty}</p>
         </div>
         <div className="dropdown dropdown-hover dropdown-end">
           <label tabIndex={0} className="m-10">
               <div className="avatar">
                   <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
-                    <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase">{user.name.slice(0, 2)}</p>
+                    <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase bg-[#F4FCFE]">{user.name.slice(0, 2)}</p>
 
                     {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
                   </div>
