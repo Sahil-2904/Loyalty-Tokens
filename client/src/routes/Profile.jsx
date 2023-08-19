@@ -5,6 +5,7 @@ import { ethers } from 'ethers';
 import ANavbar from '../components/ANavbar';
 import Footer from '../components/Footer';
 import { loginSuccess, logout, wallet,disconnectWallet } from '../authActions';
+// import { use } from 'chai';
 
 function Profile() {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ function Profile() {
 
         setCurrAddress(address);
         dispatch(wallet());
+        user.walletadd = address;
+        dispatch(loginSuccess(user));
         // console.log(connected);
         // setConnected(true);
       } else {
@@ -46,6 +49,8 @@ function Profile() {
       // console.log(connected);
       // setConnected(true);
       setCurrAddress(accounts[0]);
+      user.walletadd = accounts[0];
+      dispatch(loginSuccess(user));
     }
   };
 
@@ -56,6 +61,8 @@ function Profile() {
       // setConnected(true);
       // console.log(connected);
       setCurrAddress(ethereum.selectedAddress);
+        user.walletadd = ethereum.selectedAddress;
+        dispatch(loginSuccess(user));
     }
 
     if (ethereum) {
@@ -144,7 +151,7 @@ function Profile() {
     <>
       <ANavbar />
       <div className="flex flex-col p-10 gap-5">
-        <h2 className="flex text-5xl">{user.name}</h2>
+        {/* <h2 className="flex text-5xl">{user.name}</h2> */}
         <p className="flex text-2xl">
           Wallet Address:
           {' '}
