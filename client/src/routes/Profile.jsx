@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import ANavbar from '../components/ANavbar';
 import Footer from '../components/Footer';
-import { loginSuccess, logout } from '../authActions';
+import { loginSuccess, logout, wallet,disconnectWallet } from '../authActions';
 
 function Profile() {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
-  const [connected, setConnected] = useState(false);
+  // const [connected, setConnected] = useState(false);
+  const isConnected = useSelector((state) => state.auth.connected);
   const [currAddress, setCurrAddress] = useState('0x');
   const [buttonClasses, setButtonClasses] = useState('');
 
@@ -22,7 +24,9 @@ function Profile() {
         const address = await signer.getAddress();
 
         setCurrAddress(address);
-        setConnected(true);
+        dispatch(wallet());
+        // console.log(connected);
+        // setConnected(true);
       } else {
         window.location.href = 'https://metamask.io/download.html';
       }
@@ -33,10 +37,14 @@ function Profile() {
 
   const handleAccountsChanged = (accounts) => {
     if (accounts.length === 0) {
-      setConnected(false);
+      dispatch(disconnectWallet());
+      // console.log(connected);
+      // setConnected(false);
       setCurrAddress('0x');
     } else {
-      setConnected(true);
+      dispatch(wallet());
+      // console.log(connected);
+      // setConnected(true);
       setCurrAddress(accounts[0]);
     }
   };
@@ -44,7 +52,9 @@ function Profile() {
   useEffect(() => {
     const { ethereum } = window;
     if (ethereum && ethereum.selectedAddress) {
-      setConnected(true);
+      dispatch(wallet());
+      // setConnected(true);
+      // console.log(connected);
       setCurrAddress(ethereum.selectedAddress);
     }
 
@@ -60,12 +70,12 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    if (connected) {
+    if (isConnected) {
       setButtonClasses('hover:bg-green-70 bg-green-500');
     } else {
       setButtonClasses('hover:bg-blue-70 bg-blue-500');
     }
-  }, [connected]);
+  }, [isConnected]);
   // // const [currAddress, setCurrAddress] = useState('0x');
 
   // const connectWallet = async () => {
@@ -144,8 +154,11 @@ function Profile() {
       <div className="flex justify-center p-5">
         {/* <Link to="/"> */}
         <button className={`flex text-4xl p-5  text-black/90 rounded-3xl ${buttonClasses}`} onClick={connectWallet} type="submit">
-          { connected ? 'Connected' : 'Connect Wallet'}
+          { isConnected ? 'Connected' : 'Connect Wallet'}
         </button>
+        {
+          isConnected ? <Link to="/mycart"><button className='flex text-4xl p-5 text-black rounded-3xl'>My Cart</button></Link> : <></>
+        }
 
         {/* </Link> */}
       </div>

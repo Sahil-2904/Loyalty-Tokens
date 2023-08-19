@@ -7,6 +7,7 @@ import Login from './routes/Login';
 import SignUp from './routes/SignUp';
 import MyCart from './routes/MyCart';
 import Profile from './routes/Profile';
+import Success from "./routes/Success";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/mycart" element={<MyCart />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/success" element={<Success/>} />
     </Routes>
   );
 }

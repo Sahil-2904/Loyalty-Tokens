@@ -2,16 +2,58 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import products from '../products';
-import { loginSuccess, logout } from '../authActions';
+import { loginSuccess, logout, wallet,disconnectWallet } from '../authActions';
 
 function Full() {
   const user = useSelector((state) => state.auth.user);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isConnected = useSelector((state) => state.auth.connected);
+  const [currAddress, setCurrAddress] = useState('0x');
+  // const [connected, setConnected] = useState(false);
   const dispatch = useDispatch();
   const [cart, setCart] = useState(user.cart);
   useEffect(() => {
     setCart(user.cart); // Update the local cart state
+    dispatch(loginSuccess({...user,cart:cart}));
+    // dispatch(wallet());
   }, [user.cart]);
+  // useEffect(() => {
+  //   dispatch(wallet());
+  // },[isConnected]);
+  const handleAccountsChanged = (accounts) => {
+    if (accounts.length === 0) {
+      dispatch(disconnectWallet());
+      // console.log(connected);
+      // setConnected(false);
+      setCurrAddress('0x');
+    } else {
+      dispatch(wallet());
+      // console.log(connected);
+      // setConnected(true);
+      setCurrAddress(accounts[0]);
+    }
+  };
+
+  useEffect(() => {
+    const { ethereum } = window;
+    if (ethereum && ethereum.selectedAddress) {
+      dispatch(wallet());
+      // setConnected(true);
+      // console.log(connected);
+      setCurrAddress(ethereum.selectedAddress);
+    }
+
+    if (ethereum) {
+      ethereum.on('accountsChanged', handleAccountsChanged);
+    }
+
+    return () => {
+      if (ethereum) {
+        ethereum.removeAllListeners('accountsChanged');
+      }
+    };
+  }, [currAddress]);
+  
 
   let p = 0;
   for (let i = 0; i < user.cart.length; i++) {
@@ -58,7 +100,7 @@ function Full() {
               <th className="flex text-xl justify-left">Product</th>
               <th className="text-xl">Title</th>
               <th className="text-xl">Price</th>
-              <th className="text-xl">Quantity</th>
+              <th className="text-xl">Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -87,9 +129,9 @@ function Full() {
                             <br />
                             {/* {products[i-1].desc} */}
                             <div className="flex gap-5">
-                              <button className="flex flex-col justify-center p-3">-</button>
+                              {/* <button onClick={(e) => removeProduct(e,item)} className="flex flex-col justify-center p-3 minus" >-</button> */}
                               <span className="flex text-xl p-3">{quantity}</span>
-                              <button className="flex flex-col justify-center p-3">+</button>
+                              {/* <button onClick={(e) => addProduct(e,item)} className="flex flex-col justify-center p-3">+</button> */}
                             </div>
 
                           </td>
@@ -144,7 +186,8 @@ function Full() {
                 }
       {/* </div> */}
       <div className="flex justify-center p-5">
-        <Link to="/"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl">Connect Wallet</button></Link>
+        { isConnected ? <Link to="/success"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl">Place Order</button></Link>
+ : <Link to="/profile"><button className="flex text-4xl p-5 bg-green-600 text-black/90 rounded-3xl">Connect Your Wallet</button></Link>}
       </div>
     </div>
   );

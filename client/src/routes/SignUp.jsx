@@ -7,7 +7,7 @@ import visible from '../images/show.png';
 import hidden from '../images/hide.png';
 import Log from '../images/login.png';
 import Google from '../images/google.png';
-import { loginSuccess, logout } from '../authActions.js';
+import { loginSuccess, logout, wallet } from '../authActions.js';
 import 'react-toastify/dist/ReactToastify.css';
 // import {sha256} from 'crypto-hash';
 function SignUp() {

@@ -5,9 +5,14 @@
 //       payload: isAuthenticated,
 //     };
 //   };
+
+
+
 // Action types
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
+export const WALLET = 'WALLET';
+export const DISCONNECT = 'DISCONNECT';
 
 // Action creators
 export const loginSuccess = (user) => ({
@@ -19,3 +24,13 @@ export const logout = () => ({
   type: LOGOUT,
   payload: null,
 });
+
+export const wallet = () => ({
+  type: WALLET,
+  payload: null,
+});
+
+export const disconnectWallet = () => ({
+  type: DISCONNECT,
+  payload: null,
+})
