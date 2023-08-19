@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import ANavbar from '../components/ANavbar';
 import Footer from '../components/Footer';
-import { loginSuccess, logout, wallet,disconnectWallet } from '../authActions';
-// import { use } from 'chai';
+import {
+  loginSuccess, logout, wallet, disconnectWallet,
+} from '../authActions';
+import LoyaltyToken from '../abstract/LoyaltyToken.json';
 
 function Profile() {
   const dispatch = useDispatch();
@@ -15,18 +17,36 @@ function Profile() {
   const isConnected = useSelector((state) => state.auth.connected);
   const [currAddress, setCurrAddress] = useState('0x');
   const [buttonClasses, setButtonClasses] = useState('');
+  const getLog = async () => {
+    try {
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const addr = await signer.getAddress();
 
+      const contract = new ethers.Contract(
+        LoyaltyToken.address,
+        LoyaltyToken.abi,
+        signer,
+      );
+      const log = await contract.fetchTransactions(addr);
+      console.log(log);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   const connectWallet = async () => {
     try {
       if (window.ethereum) {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
         const address = await signer.getAddress();
 
         setCurrAddress(address);
         dispatch(wallet());
         user.walletadd = address;
+        // getLog();
         dispatch(loginSuccess(user));
         // console.log(connected);
         // setConnected(true);
@@ -61,8 +81,8 @@ function Profile() {
       // setConnected(true);
       // console.log(connected);
       setCurrAddress(ethereum.selectedAddress);
-        user.walletadd = ethereum.selectedAddress;
-        dispatch(loginSuccess(user));
+      user.walletadd = ethereum.selectedAddress;
+      dispatch(loginSuccess(user));
     }
 
     if (ethereum) {
@@ -164,7 +184,7 @@ function Profile() {
           { isConnected ? 'Connected' : 'Connect Wallet'}
         </button>
         {
-          isConnected ? <Link to="/mycart"><button className='flex text-4xl p-5 text-black rounded-3xl'>My Cart</button></Link> : <></>
+          isConnected ? <Link to="/mycart"><button className="flex text-4xl p-5 text-black rounded-3xl">My Cart</button></Link> : <></>
         }
 
         {/* </Link> */}
