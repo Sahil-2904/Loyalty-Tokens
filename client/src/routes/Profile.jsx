@@ -30,8 +30,32 @@ function Profile() {
         signer,
       );
       const logs = await contract.fetchTransactions(addr);
-      console.log(logs);
-      // contract.on('tokenMinted', function (event) {
+
+      // Convert BigInts to strings before JSON serialization
+      const serializedLogs = logs.map((log) => ({
+        0: log[0].toString(),
+        1: log[1],
+        2: log[2].toString(),
+        3: log[3].toString(),
+        4: log[4].toString(),
+        5: log[5],
+        6: log[6],
+      }));
+
+      // Serialize to JSON
+      const jsonString = JSON.stringify(serializedLogs);
+
+      // Parse JSON and convert string values back to BigInts
+      const parsedLogs = JSON.parse(jsonString, (key, value) => {
+        if (/^\d+$/.test(value)) {
+          return BigInt(value);
+        }
+        return value;
+      });
+
+      console.log(parsedLogs);
+
+      // contract.on('tok enMinted', function (event) {
       //   console.log(`Result is ${event}`);
       // });
     } catch (err) {
