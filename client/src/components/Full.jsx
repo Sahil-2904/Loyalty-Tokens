@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ethers } from 'ethers';
 import products from '../products';
@@ -9,6 +9,7 @@ import {
 
 import Admin from '../routes/Admin';
 import LoyaltyToken from '../abstract/LoyaltyToken.json';
+import SuccessDialog from './SuccessDialog';
 
 function Full() {
   const user = useSelector((state) => state.auth.user);
@@ -18,6 +19,9 @@ function Full() {
   // const [connected, setConnected] = useState(false);
   const dispatch = useDispatch();
   const [cart, setCart] = useState(user.cart);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState('');
+  const navigate = useNavigate();
   useEffect(() => {
     setCart(user.cart); // Update the local cart state
     dispatch(loginSuccess({ ...user, cart }));
@@ -108,12 +112,20 @@ function Full() {
         signer,
       );
       const result = await contract.mintFor(addr, amount);
+      await result.wait();
+      setDialogMessage('Order placed Successfully!');
+      setShowDialog(true);
       console.log(result);
     } catch (error) {
       console.log(error);
+    } finally {
+      handleSuccess();
+      navigate('/success');
     }
   };
-
+  const handleCloseDialog = () => {
+    setShowDialog(false);
+  };
   return (
     <div className="flex flex-col gap-2 p-12 pt-5">
       {/* <div className="bg-[#141619] h-2"></div> */}
@@ -232,9 +244,31 @@ function Full() {
                 }
       {/* </div> */}
       <div className="flex justify-center p-5">
-        { isConnected ? <Link onClick={handleSuccess} to="/success"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl" onClick={() => mintToken(currAddress, convertPriceToTokens(p))}>Place Order</button></Link>
-          : <Link to="/profile"><button className="flex text-3xl font-bold p-5 m-10 text-white bg-emerald-600 rounded-3xl">Connect Wallet</button></Link>}
+        {isConnected ? (
+          <div>
+            <button
+              type="submit"
+              className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl"
+              onClick={() => mintToken(currAddress, convertPriceToTokens(p))}
+            >
+              Place Order
+            </button>
+            {showDialog && (
+            <SuccessDialog
+              message={dialogMessage}
+              onClose={handleCloseDialog}
+            />
+            )}
+          </div>
+        ) : (
+          <Link to="/profile">
+            <button className="flex text-3xl font-bold p-5 m-10 text-white bg-emerald-600 rounded-3xl">
+              Connect Wallet
+            </button>
+          </Link>
+        )}
       </div>
+
     </div>
   );
 }

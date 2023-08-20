@@ -5,26 +5,25 @@ import cart from '../images/cart.png';
 import { loginSuccess, logout, wallet } from '../authActions';
 import Search from './Search';
 import Logo from '../images/Lo.svg';
-import Coin from '../images/Coin.svg'
-import Profile from "../images/Profile.png";
+import Coin from '../images/Coin.svg';
+import Profile from '../images/Profile.png';
 
 function ANavbar() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const tokens = useSelector((state) => state.auth.tokens);
   const dispatch = useDispatch();
   const handleLogout = async () => {
-    const response = await fetch("http://localhost:3000/logout",{
-      method:'POST',
+    const response = await fetch('http://localhost:3000/logout', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-      }
+      },
     });
     const res = await response.json();
-    if(response.ok){
+    if (response.ok) {
       dispatch(logout());
-    }
-    else{
-      console.log("Logout Error");
+    } else {
+      console.log('Logout Error');
     }
   };
   const user = useSelector((state) => state.auth.user);
@@ -51,17 +50,17 @@ function ANavbar() {
       <div className="flex gap-5 justify-center">
         <div className="flex gap-3 justify-center text-black rounded-full items-center">
           {/* <h2 className="text-3xl bg-orange-500 p-1 rounded-full">C</h2> */}
-          <img className="w-8 h-8 flex flex-col justify-center mx-auto" src={Coin}  alt="" />
+          <img className="w-8 h-8 flex flex-col justify-center mx-auto" src={Coin} alt="" />
           <p className="flex flex-col justify-center text-xl text-yellow-400">{tokens}</p>
         </div>
         <div className="dropdown dropdown-click dropdown-end">
           <label tabIndex={0} className="m-10">
-              <div className="avatar">
-                  <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
-                    <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase bg-[#F4FCFE]">{user.name.slice(0, 2)}</p>
+            <div className="avatar">
+              <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
+                <p className="flex flex-col justify-center text-2xl p-2 text-sky-500 uppercase bg-[#F4FCFE]">{user.name.slice(0, 2)}</p>
 
-                    {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
-                  </div>
+                {/* <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
+              </div>
             </div>
           </label>
           <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 gap-1 mt-1">
@@ -88,8 +87,7 @@ function ANavbar() {
             </li>
           </ul>
         </div>
-        
-        
+
         {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
         {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl" onClick={()=>window.my_modal_3.showModal()}>Login</button>
                     <dialog id="my_modal_3" className="modal bg-black/10">
@@ -115,7 +113,7 @@ function ANavbar() {
                             </a>
                         </form>
                     </dialog> */}
-        
+
       </div>
     </div>
   );

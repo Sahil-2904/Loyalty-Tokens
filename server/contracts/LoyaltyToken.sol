@@ -295,12 +295,13 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
 
         _transactionId.increment();
         uint256 newTransId = _transactionId.current();
+        uint256 time = block.timestamp;
         transactionLog[newTransId] = transaction(
             newTransId,
             msg.sender,
             amount,
             currBalance,
-            0,
+            time,
             false,
             "Tokens Redeemed"
         );
@@ -310,7 +311,7 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
             msg.sender,
             amount,
             currBalance,
-            0,
+            time,
             false,
             "Tokens Redeemed"
         );
