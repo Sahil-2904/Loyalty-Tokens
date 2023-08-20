@@ -23,10 +23,14 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
     address private _contractDeployer;
     uint256 private interval;
 
+    function decimals() public view virtual override returns (uint8) {
+        return 0;
+    }
+
     constructor() ERC20("Loyalty Tokens", "DE") {
         _contractDeployer = msg.sender;
         interval = 500;
-        _mint(msg.sender, 1000 * 10 ** decimals());
+        _mint(msg.sender, 100000000 * decimals());
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
@@ -327,18 +331,4 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
         // }
         return true;
     }
-
-    // function supportsInterface(bytes4 interfaceId)
-    //     public
-    //     view
-    //     virtual
-    //     override(ERC721, AccessControl)
-    //     returns (bool)
-    // {
-    //     return super.supportsInterface(interfaceId);
-    // }
-    // struct Customer{
-    //     address accountId;
-
-    // }
 }
