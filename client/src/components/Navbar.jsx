@@ -11,14 +11,14 @@ function Navbar() {
                     <i style={{color:"black"}} className="flex flex-col justify-center fa-solid fa-magnifying-glass"></i>
                 </div> */}
       <Search />
-      <div style={{ left: '50%' }} className="flex absolute bg-[#141619] p-2 rounded-full">
-        <Link to="/"><img className="w-12 h-12" src={Logo} alt="" /></Link>
+      <div style={{ left: '48%' }} className="flex absolute bg-[#020617] p-4 rounded-full">
+        <Link to="/"><img className="w-14 h-14" src={Logo} alt="" /></Link>
         {/* <h2 className="text-3xl text-white">DE</h2> */}
         {/* <img className="flex w-20 h-20" src={Logo} alt="" /> */}
       </div>
 
       <div className="flex gap-5 justify-center">
-        <Link to="/login" className="btn"><button className="flex flex-col justify-center text-2xl p-2 rounded-box">Login</button></Link>
+        <Link to="/login" className="btn btn-outline rounded-full w-36 shadow-xl"><button className="flex flex-col justify-center text-2xl p-2 bg-rounded-box">Login</button></Link>
         {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl">Login</button> */}
         {/* <button className="flex flex-col justify-center text-2xl p-2 rounded-xl" onClick={()=>window.my_modal_3.showModal()}>Login</button>
                     <dialog id="my_modal_3" className="modal bg-black/10">

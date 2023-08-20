@@ -110,7 +110,7 @@ function SignUp() {
           </div>
           <div className="flex justify-center gap-3">
             <input onChange={(e) => setPassword(e.target.value)} value={password} type={show ? 'text' : 'password'} placeholder="Password" className="input input-info w-full max-w-xs" />
-            <button onClick={() => { setShow(!show); }} className="absolute flex flex-col justify-center hover:bg-slate-100 p-2 rounded-full top-[415px] right-[250px]"><img className="flex w-5 h-5" src={show ? visible : hidden} alt="" /></button>
+            <button onClick={() => { setShow(!show); }} className="absolute flex flex-col justify-center hover:bg-slate-100 p-2 rounded-full top-[55vh] right-[19vw]"><img className="flex w-5 h-5" src={show ? visible : hidden} alt="" /></button>
           </div>
           <button onClick={handleSignUp} className="flex justify-center p-3">
             <Link to={link}>

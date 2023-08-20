@@ -22,7 +22,7 @@ function Prod() {
     toast.success('Product Added to Cart');
   };
   return (
-    <div className="flex flex-col p-10 gap-10 bg-[#33313b] font-bold shadow-2xl">
+    <div className="flex flex-col p-10 gap-10 bg-[#161922] font-bold shadow-2xl">
       <div className="flex p-5 justify-center">
         <h2 className="flex text-5xl text-white">Top Picks</h2>
       </div>

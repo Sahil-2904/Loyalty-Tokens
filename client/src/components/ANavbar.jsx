@@ -34,7 +34,7 @@ function ANavbar() {
                     <i style={{color:"black"}} className="flex flex-col justify-center fa-solid fa-magnifying-glass"></i>
                 </div> */}
       <Search />
-      <div style={{ left: '50%' }} className="flex absolute bg-[#141619] p-2 rounded-full">
+      <div style={{ left: '48%' }} className="flex absolute bg-[#020617] p-2 w-20 h-20 justify-center items-center rounded-full">
         <Link to="/"><img className="w-12 h-12" src={Logo} alt="" /></Link>
         {/* <h2 className="text-3xl text-white">DE</h2> */}
       </div>
@@ -53,7 +53,7 @@ function ANavbar() {
           <img src={Coin} className="w-8 h-8" alt="" />
           <p className="flex text-xl text-yellow-400">{user.loyalty}</p>
         </div>
-        <div className="dropdown dropdown-hover dropdown-end">
+        <div className="dropdown dropdown-click dropdown-end">
           <label tabIndex={0} className="m-10">
               <div className="avatar">
                   <div className="w-12 rounded-full ring ring-neutral ring-offset-info ring-offset-2 text-center">
@@ -66,7 +66,7 @@ function ANavbar() {
           <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 gap-1 mt-1">
             <li>
               <Link to="/profile">
-                <button className="flex justify-center text-xl rounded-box gap-2">
+                <button className="flex justify-center items-center text-lg rounded-box gap-2">
                   <img src={Profile} className="flex w-8 h-8" />
                   Profile
                 </button>
@@ -74,15 +74,15 @@ function ANavbar() {
             </li>
             <li>
               <Link to="/mycart">
-                <button className="flex justify-center text-xl rounded-box gap-2">
+                <button className="flex justify-center text-lg rounded-box gap-2">
                   <img src={cart} className="flex w-8 h-8" />
                   My Cart
                 </button>
               </Link>
             </li>
             <li onClick={handleLogout}>
-              <Link to="/" className="flex flex-col justify-center text-xl btn btn-outline btn-success">
-                <button >Logout</button>
+              <Link to="/" className="flex flex-col justify-center text-lg btn btn-outline m-5 mt-3">
+                <button>Logout</button>
               </Link>
             </li>
           </ul>

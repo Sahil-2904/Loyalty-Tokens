@@ -209,7 +209,7 @@ function Profile() {
       </div>
       <div className="flex justify-center p-5">
         {/* <Link to="/"> */}
-        <button className={`flex text-4xl p-5  text-black/90 rounded-3xl ${buttonClasses}`} onClick={connectWallet} type="submit">
+        <button className={`flex text-4xl p-5 bg-emerald-600 text-white rounded-3xl ${buttonClasses}`} onClick={connectWallet} type="submit">
           { isConnected ? 'Connected' : 'Connect Wallet'}
         </button>
         {
