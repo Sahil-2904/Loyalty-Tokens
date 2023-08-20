@@ -11,6 +11,7 @@ import Success from "./routes/Success";
 import Admin from "./routes/Admin";
 import Redeem from './routes/Reedeem';
 import Seller from './routes/Seller';
+import Earn from './routes/Earn';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Route path="/admin" element={<Admin/>} />
       <Route path="/profile/redeem" element={<Redeem/>}/>
       <Route path="/seller" element={<Seller  />}/>
+      <Route path="/profile/earn" element={<Earn  />}/>
     </Routes>
   );
 }
