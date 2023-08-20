@@ -17,13 +17,14 @@
 
 //   export default authReducer;
 
-import { LOGIN_SUCCESS, LOGOUT, WALLET,DISCONNECT } from './authActions';
+import { LOGIN_SUCCESS, LOGOUT, WALLET, DISCONNECT, TOKENS } from './authActions';
 
 // Initial state
 const initialState = {
   isAuthenticated: false,
   user: null,
-  connected:false
+  connected:false,
+  tokens:0
 };
 
 // Reducer
@@ -51,6 +52,11 @@ const authReducer = (state = initialState, action) => {
       return{
         ...state,
         connected:false
+      }
+    case TOKENS:
+      return{
+        ...state,
+        tokens:action.payload
       }
     default:
       return state;

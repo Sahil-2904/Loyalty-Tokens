@@ -10,6 +10,7 @@ import Profile from "../images/Profile.png";
 
 function ANavbar() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const tokens = useSelector((state) => state.auth.tokens);
   const dispatch = useDispatch();
   const handleLogout = async () => {
     const response = await fetch("http://localhost:3000/logout",{
@@ -48,10 +49,10 @@ function ANavbar() {
                 </div> */}
 
       <div className="flex gap-5 justify-center">
-        <div className="flex flex-col justify-center text-black rounded-full">
+        <div className="flex gap-3 justify-center text-black rounded-full items-center">
           {/* <h2 className="text-3xl bg-orange-500 p-1 rounded-full">C</h2> */}
-          <img src={Coin} className="w-8 h-8" alt="" />
-          <p className="flex text-xl text-yellow-400">{user.loyalty}</p>
+          <img className="w-8 h-8 flex flex-col justify-center mx-auto" src={Coin}  alt="" />
+          <p className="flex flex-col justify-center text-xl text-yellow-400">{tokens}</p>
         </div>
         <div className="dropdown dropdown-click dropdown-end">
           <label tabIndex={0} className="m-10">
@@ -81,7 +82,7 @@ function ANavbar() {
               </Link>
             </li>
             <li onClick={handleLogout}>
-              <Link to="/" className="flex flex-col justify-center text-lg btn btn-outline m-5 mt-3">
+              <Link to="/" className="flex flex-col justify-center text-lg btn btn-outline btn-error m-3 mt-3">
                 <button>Logout</button>
               </Link>
             </li>

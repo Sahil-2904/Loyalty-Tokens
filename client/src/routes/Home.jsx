@@ -13,14 +13,14 @@ function Home() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return (
-    <>
+    <div className='flex flex-col'>
       {isAuthenticated ? <ANavbar className="" /> : <Navbar />}
       <Carousel />
       <Categories />
       <Prod />
       <Best />
       <Footer />
-    </>
+    </div>
   );
 }
 export default Home;
