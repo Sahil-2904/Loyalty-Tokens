@@ -215,7 +215,7 @@ function Profile() {
               { isConnected ? 'Connected' : 'Connect Wallet'}
             </button>
             {
-              isConnected ? <Link to="/mycart"><button className="flex text-3xl p-3 text-black rounded-3xl">My Cart</button></Link> : <></>
+              isConnected ? <Link to="/mycart"><button className="flex text-3xl p-3 text-black bg-sky-400 rounded-3xl ml-5">My Cart</button></Link> : <></>
             }
           </div>
         </div>
@@ -225,7 +225,7 @@ function Profile() {
                   {' '}
                   {currAddress}
             </p>
-            <Link to="/profile/redeem"><button className='flex flex-col justify-center text-3xl p-3 text-black rounded-3xl outline-sky-400'>Redeem Tokens</button></Link>
+            <Link to="/profile/redeem"><button className='flex flex-col justify-center text-3xl p-3 text-black rounded-3xl outline-sky-400 bg-sky-300'>Redeem Tokens</button></Link>
         </div>
         <div className='flex flex-col gap-3 justify-center'> 
         <h2 className='flex text-3xl'>Transactions</h2>
