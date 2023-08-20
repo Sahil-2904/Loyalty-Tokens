@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 import { ethers } from 'ethers';
 import ANavbar from '../components/ANavbar';
 import Footer from '../components/Footer';
-import {
-  loginSuccess, logout, wallet, disconnectWallet,
-} from '../authActions';
+import {loginSuccess, logout, wallet, disconnectWallet, tokens,} from '../authActions';
 import LoyaltyToken from '../abstract/LoyaltyToken.json';
 
 function Profile() {
@@ -17,6 +15,8 @@ function Profile() {
   const isConnected = useSelector((state) => state.auth.connected);
   const [currAddress, setCurrAddress] = useState('0x');
   const [buttonClasses, setButtonClasses] = useState('');
+  const [logs,setLogs] = useState([]);
+  
   const getLog = async () => {
     try {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -54,6 +54,10 @@ function Profile() {
       });
 
       console.log(parsedLogs);
+      setLogs(parsedLogs);
+      const currTokens = await contract.balanceFor(addr);
+      const t = currTokens.toString();
+      dispatch(tokens(t));
 
       // contract.on('tok enMinted', function (event) {
       //   console.log(`Result is ${event}`);
@@ -199,24 +203,94 @@ function Profile() {
   return (
     <>
       <ANavbar />
-      <div className="flex flex-col p-10 gap-5">
-        {/* <h2 className="flex text-5xl">{user.name}</h2> */}
-        <p className="flex text-2xl">
-          Wallet Address:
-          {' '}
-          {currAddress}
-        </p>
-      </div>
-      <div className="flex justify-center p-5">
-        {/* <Link to="/"> */}
-        <button className={`flex text-4xl p-5 bg-emerald-600 text-white rounded-3xl ${buttonClasses}`} onClick={connectWallet} type="submit">
-          { isConnected ? 'Connected' : 'Connect Wallet'}
-        </button>
+      <div className='flex flex-col p-20 gap-10'>
+        <div className='flex justify-between'>
+          <div className="flex flex-col gap-5">
+            <h2 className="flex text-5xl">{user.name}</h2>
+            <h4 className='flex text-3xl'>{user.email}</h4>
+          </div>
+          <div className="flex justify-center p-5">
+            {/* <Link to="/"> */}
+            <button className={`flex text-3xl p-3 bg-emerald-600 text-white rounded-3xl ${buttonClasses}`} onClick={connectWallet} type="submit">
+              { isConnected ? 'Connected' : 'Connect Wallet'}
+            </button>
+            {
+              isConnected ? <Link to="/mycart"><button className="flex text-3xl p-3 text-black rounded-3xl">My Cart</button></Link> : <></>
+            }
+          </div>
+        </div>
+        <div className='flex justify-between'>
+            <p className="flex flex-col justify-center text-2xl">
+                  Wallet Address:
+                  {' '}
+                  {currAddress}
+            </p>
+            <Link to="/profile/redeem"><button className='flex flex-col justify-center text-3xl p-3 text-black rounded-3xl outline-sky-400'>Redeem Tokens</button></Link>
+        </div>
+        <div className='flex flex-col gap-3 justify-center'> 
+        <h2 className='flex text-3xl'>Transactions</h2>
         {
-          isConnected ? <Link to="/mycart"><button className="flex text-4xl p-5 text-black rounded-3xl">My Cart</button></Link> : <></>
-        }
+          logs.length === 0 ? (<p>No Transactions Yet</p>) : 
+          (
+            <div className="overflow-x-auto">
+                <table className="table">
+                  <thead>
+                    <tr className="shadow-md">
+                      <th className="flex text-xl justify-left ms-5 mb-5 mt-5">Sr.No</th>
+                      <th className="text-xl m-5">Time</th>
+                      <th className="text-xl m-5">Tokens</th>
+                      <th className="text-xl m-5">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                            logs.map((log, index) => {  
+                              const t = log[4].toString() 
+                              const d =  Number(t) * 1000;        
+                              const date = new Date(d);
+                              const options = {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                                hour: 'numeric',
+                                minute: 'numeric',
+                              };
+                              const time = date.toLocaleString('en-US',options);
+                              console.log(time) ;  
 
+                              return (
+                                <tr key={index} className="shadow-md">
+                                  <td className="flex justify-center">
+                                    <p className='flex text-xl'>{index + 1}</p>
+                                  </td>
+                                  <td className="">
+                                    <p className='flex text-xl'>{time.toString()}</p>
+                                  </td>
+                                  <td>
+                                    <p className="text-xl">
+                                      {log[2].toString()}
+                                    </p>
+                                  </td>
+                                  <th>
+                                    {/* <button onClick={(e) => removeCart(e, item)} className="btn btn-ghost btn-lg"><i className="fa-solid fa-trash" style={{ color: 'red' }} /></button>
+                                     */}
+                                     {log[6]}
+                                  </th>
+                                </tr>
+                              );
+                            })
+                        }
+                  </tbody>
+                </table>
+            </div> 
+          )
+        }
       </div>
+      </div>
+      
+      
+      
+      
       <Footer />
     </>
 

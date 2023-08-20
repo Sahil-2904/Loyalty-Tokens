@@ -8,7 +8,7 @@ function Carousel() {
     setFirst(!first);
   }, 7000);
   return (
-    <div className="carousel w-full max-h-screen">
+    <div className="carousel w-full min-h-screen">
       {
             first ? (
               <div id="slide1" className="carousel-item relative w-full">

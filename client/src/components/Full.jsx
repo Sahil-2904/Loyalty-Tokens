@@ -68,6 +68,14 @@ function Full() {
     // console.log(id,q);
     p += (q * products[id - 1].price);
   }
+
+  function convertPriceToTokens(price) {
+    let tokens = Math.round(price / 1000);
+    if (tokens > 100) {
+      tokens = 100;
+    }
+    return tokens;
+  }
   const removeCart = (e, item) => {
     console.log(item);
     const updatedCart = user.cart.filter((i) => i != item);
@@ -224,7 +232,7 @@ function Full() {
                 }
       {/* </div> */}
       <div className="flex justify-center p-5">
-        { isConnected ? <Link onClick={handleSuccess} to="/success"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl" onClick={() => mintToken(currAddress, p)}>Place Order</button></Link>
+        { isConnected ? <Link onClick={handleSuccess} to="/success"><button className="flex text-4xl p-5 bg-sky-600 text-black/90 rounded-3xl" onClick={() => mintToken(currAddress, convertPriceToTokens(p))}>Place Order</button></Link>
           : <Link to="/profile"><button className="flex text-3xl font-bold p-5 m-10 text-white bg-emerald-600 rounded-3xl">Connect Wallet</button></Link>}
       </div>
     </div>

@@ -13,6 +13,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
 export const WALLET = 'WALLET';
 export const DISCONNECT = 'DISCONNECT';
+export const TOKENS = 'TOKENS';
 
 // Action creators
 export const loginSuccess = (user) => ({
@@ -33,4 +34,9 @@ export const wallet = () => ({
 export const disconnectWallet = () => ({
   type: DISCONNECT,
   payload: null,
+})
+
+export const tokens = (token) => ({
+  type: TOKENS,
+  payload: token,
 })

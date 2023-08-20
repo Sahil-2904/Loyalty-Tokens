@@ -10,6 +10,7 @@ const products = [
     category: 'Sneakers',
     link: '/products/1',
     tags: 'Heavily-Discounted',
+    tokenValue:100
   },
   {
     id: 2,
@@ -130,6 +131,7 @@ const products = [
     category: 'Sneakers',
     link: '/products/11',
     tags: 'Heavily-Discounted',
+    tokenValue:500
   },
   {
     id: 12,
@@ -226,6 +228,7 @@ const products = [
     category: 'Fashion',
     link: '/products/19',
     tags: 'Heavily-Discounted',
+    tokenValue:1000
   },
   {
     id: 20,
@@ -238,6 +241,7 @@ const products = [
     category: 'Fashion',
     link: '/products/20',
     tags: 'Heavily-Discounted',
+    tokenValue:400
   },
   {
     id: 21,
@@ -334,6 +338,7 @@ const products = [
     category: 'Electronics',
     link: '/products/28',
     tags: 'Heavily-Discounted',
+    tokenValue:300
   },
   {
     id: 29,
@@ -346,6 +351,7 @@ const products = [
     category: 'Electronics',
     link: '/products/29',
     tags: 'Heavily-Discounted',
+    tokenValue:600
   },
   {
     id: 30,
@@ -370,6 +376,7 @@ const products = [
     category: 'Electronics',
     link: '/products/31',
     tags: 'Heavily-Discounted',
+    tokenValue:150
   },
   {
     id: 32,
@@ -382,6 +389,7 @@ const products = [
     category: 'Electronics',
     link: '/products/32',
     tags: 'Heavily-Discounted',
+    tokenValue:700
   },
   {
     id: 33,
@@ -394,6 +402,7 @@ const products = [
     category: 'Electronics',
     link: '/products/33',
     tags: 'Heavily-Discounted',
+    tokenValue:1200
   },
 ];
 
