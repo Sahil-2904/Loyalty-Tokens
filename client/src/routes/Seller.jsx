@@ -66,7 +66,7 @@ function Seller(){
                         <div key={index}>
                             <h2>{user.name}</h2>
                             <p>{user.email}</p>
-                            <p>{user.wallet}</p>
+                            <p>{user.walletadd}</p>
                         </div>
                         
                     )
@@ -74,7 +74,24 @@ function Seller(){
                 :
                 (<><p>No Users</p></>)
             }
-        </div>
+            </div>
+            <div>
+                {
+                    transactions.length !== 0 ? (
+                    (
+                        transactions.map((transaction,index) => {
+                            return (
+                                <div key={index}>
+                                    <h2>{transaction.name}</h2>
+                                    <p>{transaction.walletadd}</p>
+                                </div>
+                            )
+                        })
+                    )) : 
+                    (<><p>No Transactions</p></>)
+                }
+                
+            </div>
         {/* <div className='flex flex-col'>
             {
                 products.map((product,index) => {

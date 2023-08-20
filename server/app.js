@@ -92,9 +92,25 @@ app.get("/users/:id",async(req,res) => {
 app.get("/transactions",(req,res) => {
     res.send(transactions);
 })
-app.post("/transactions",(req,res) => {
+app.post("/transactions",async(req,res) => {
     console.log(req.body);
     transactions.push(req.body);
+    const _id = req.body._id;
+    const wallet = req.body.wallet;
+    const cart = req.body.cart;
+    const user = await User.findById(_id);
+    user.wallet = wallet;
+    user.order.push(cart);   
+    console.log(user);
+    user.save();
+    // r.cart = [];
+    // r.wallet = w;
+    // const c = req.body.cart.map((obj,index) => obj);
+    // const c = req.body.cart.forEach(element => {
+    //     return element
+    // });
+    // r.order.cart.push(req.body.cart);
+    // console.log(r);
 })
 app.get("/products",async (req,res) => {
     try{

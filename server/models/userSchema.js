@@ -70,18 +70,21 @@ const userSchema = new Schema(
       ],
       order:[
         {
-          cart:[
-            {
-              id: Number,
-              quantity: Number
-            }
-          ],
-          totalPrice: Number,
-          paidAt: {
-            type: Date,
-            default: Date.now,
-          },
+          type: Object
         }
+        // {
+        //   cart:[
+        //     {
+        //       id: Number,
+        //       quantity: Number
+        //     }
+        //   ],
+        //   totalPrice: Number,
+        //   paidAt: {
+        //     type: Date,
+        //     default: Date.now,
+        //   },
+        // }
       ]
   },
 

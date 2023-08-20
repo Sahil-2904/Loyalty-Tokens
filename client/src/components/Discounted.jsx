@@ -100,6 +100,7 @@ function Discounted() {
         {
                     pro.map((product, index) => {
                       const link = `products/${product.id}`;
+                      console.log(product.tokenValue);
                       return (
                         <div key={index} className="carousel-item w-1/4 flex justify-center">
                           <div className="card w-96 bg-base-100 shadow-xl">
