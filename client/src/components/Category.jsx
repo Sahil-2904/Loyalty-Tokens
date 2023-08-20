@@ -33,10 +33,10 @@ function Category() {
       {isAuthenticated ? <ANavbar /> : <Navbar />}
 
       <div className="flex flex-col p-14 gap-6">
-        <div className="flex justify-center">
-          <h2 className="flex text-5xl text-white uppercase bg-[#141619] p-4 rounded-xl">{category}</h2>
+        <div className="flex justify-center border border-outline border-4 border-black rounded-box">
+          <h2 className="flex text-5xl uppercase p-4 pt-10 pb-10 rounded-xl">{category}</h2>
         </div>
-        <div className="grid grid-cols-3 p-4 place-items-center gap-4">
+        <div className="grid grid-cols-3 p-16 place-items-center gap-16">
           {' '}
           {/* carousel carousel-center max-w p-4 space-x-4 bg-transparent rounded-box */}
           {
@@ -47,7 +47,7 @@ function Category() {
                               {' '}
                               {/* carousel-item */}
                               <div className="card w-96 bg-base-100 shadow-xl">
-                                <figure className="flex w-96 h-96 mx-auto">
+                                <figure className="flex w-96 h-96 mx-auto shadow-md">
                                   <img src={product.thumbnail} className="rounded-box object-contain" />
                                 </figure>
                                 <div className="card-body">
@@ -58,9 +58,9 @@ function Category() {
                                   </p>
                                   {' '}
                                   {/* ₨ */}
-                                  <div className="card-actions justify-end">
+                                  <div className="card-actions justify-end mt-8">
                                     <Link to={product.link}><button className="btn btn-info">Buy Now</button></Link>
-                                    {isAuthenticated ? <button onClick={(e) => handleClick(e, product.id)} className="btn btn-outline">Add To Cart</button> : <Link to="/login"><button className="btn btn-outline">Add To Cart</button></Link>}
+                                    {isAuthenticated ? <button onClick={(e) => handleClick(e, product.id)} className="btn btn-outline w-1/2">Add To Cart</button> : <Link to="/login"><button className="btn btn-outline">Add To Cart</button></Link>}
                                   </div>
                                 </div>
                               </div>

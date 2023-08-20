@@ -25,11 +25,11 @@ function Search() {
         {
                                                     pro.map((product, index) => (
                                                       <Link to={product.link}>
-                                                        <div key={index} className="flex p-5 rounded-xl gap-5 m-2 border border-gray-200 hover:text-white hover:bg-[#33313b]">
+                                                        <div key={index} className="flex p-5 rounded-xl gap-5 m-2 border border-gray-200 hover:text-white hover:bg-[#141619]">
                                                           <div className="flex w-20 h-16">
-                                                            <img className="object-contain" src={product.thumbnail} alt="" />
+                                                            <img className="object-contain w-24 h-16" src={product.thumbnail} alt="" />
                                                           </div>
-                                                          <div className="flex flex-col">
+                                                          <div className="flex flex-col ms-7">
                                                             <h5 className="flex text-2xl">{product.title}</h5>
                                                             <p className="flex text-lg">{product.category}</p>
                                                           </div>

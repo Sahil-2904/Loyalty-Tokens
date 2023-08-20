@@ -62,7 +62,7 @@ function Login() {
           </div>
           <div className="flex justify-center gap-3">
             <input onChange={(e) => setPassword(e.target.value)} value={password} type={show ? 'text' : 'password'} placeholder="Password" className="input input-info w-full max-w-xs" />
-            <button onClick={() => { setShow(!show); }} className="absolute flex flex-col justify-center hover:bg-slate-100 p-2 rounded-full top-[345px] right-[250px]"><img className="flex flex-col justify-center w-5 h-5" src={show ? visible : hidden} alt="" /></button>
+            <button onClick={() => { setShow(!show); }} className="absolute flex flex-col justify-center hover:bg-slate-100 p-2 rounded-full top-[47vh] right-[19vw]"><img className="flex flex-col justify-center w-5 h-5" src={show ? visible : hidden} alt="" /></button>
           </div>
           <button onClick={handleLogin} className="flex justify-center p-3">
             <Link to={link}>
@@ -74,7 +74,7 @@ function Login() {
         </div>
         <hr className="flex w-1/2 mx-auto" />
         <div className="flex justify-center p-5">
-          <a href="/auth/google" className="flex gap-x-5 bg-slate-100 rounded-2xl p-3  shadow hover:bg-slate-200  transition-all duration-300 ease-out">
+          <a href="/auth/google" className="flex gap-x-3 bg-slate-100 rounded-2xl p-5 shadow hover:bg-slate-200  transition-all duration-300 ease-out">
             <img className="w-10 h-10" src={Google} alt="google" />
             <h1 className="text-xl flex flex-col justify-center">Log In with Google</h1>
           </a>
