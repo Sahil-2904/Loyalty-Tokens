@@ -43,7 +43,7 @@ function Category() {
       {isAuthenticated ? <ANavbar /> : <Navbar />}
 
       <div className="flex flex-col p-14 gap-6">
-        <div className="flex justify-center border border-outline border-4 border-black rounded-box">
+        <div className="flex justify-center border-outline border-4 border-black rounded-box">
           <h2 className="flex text-5xl uppercase p-4 pt-10 pb-10 rounded-xl">{category}</h2>
         </div>
         <div className="grid grid-cols-3 p-16 place-items-center gap-16">

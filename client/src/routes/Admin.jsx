@@ -22,11 +22,11 @@ function Admin(){
             
                 (transactions.map((transaction,index) => {
                     return (
-                        <>
+                        <div key={index}>
                             <h2>{transaction.name}</h2>
                             <p>{transaction.email}</p>
                             <p>{transaction.walletadd}</p>
-                        </>
+                        </div>
                         
                     )
                 }))
