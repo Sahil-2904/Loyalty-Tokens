@@ -1,12 +1,22 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { loginSuccess, logout, wallet } from '../authActions';
-import products from '../products';
+// import products from '../products';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Prod() {
+  const [products,setProducts] = useState([]);
+  useEffect(() => {
+      const getProducts = async () => {
+        const response = await fetch("http://localhost:3000/products");
+        const p = await response.json();
+        console.log(p);
+        setProducts(p);
+      }
+      getProducts();
+    },[]);
   const pro = products.filter((pro) => pro.tags.toLowerCase() === 'top');
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);

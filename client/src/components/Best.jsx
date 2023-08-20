@@ -1,12 +1,13 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { loginSuccess, logout, wallet } from '../authActions';
-import products from '../products';
+// import products from '../products';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Best() {
+  const [products,setProducts] = useState([]);
   const pro = products.filter((pro) => pro.tags.toLowerCase() === 'best-seller');
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
@@ -21,6 +22,15 @@ function Best() {
     console.log(id);
     toast.success('Product Added to Cart');
   };
+  useEffect(() => {
+    const getProducts = async () => {
+      const response = await fetch("http://localhost:3000/products");
+      const p = await response.json();
+      console.log(p);
+      setProducts(p);
+    }
+    getProducts();
+  },[]);
   return (
     <div className="flex flex-col p-10 gap-10 font-bold">
       <div className="flex p-5 justify-center">

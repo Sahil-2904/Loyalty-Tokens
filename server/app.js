@@ -10,6 +10,7 @@ import connectDB from './database/index.js';
 import User from './models/userSchema.js';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
+import Product from "./models/productSchema.js";
 
 
 const salt = bcrypt.genSaltSync(10);
@@ -95,6 +96,32 @@ app.post("/transactions",(req,res) => {
     console.log(req.body);
     transactions.push(req.body);
 })
+app.get("/products",async (req,res) => {
+    try{
+        const products = await Product.find({}).exec();
+        res.send(products);
+    }catch(error){
+        res.send("Error getting products");
+    }
+});
+app.get("/products/:id",async(req,res) => {
+    try{
+        console.log(req.params['id']);
+        const id = req.params['id'];
+        const response = await fetch("http://localhost:3000/products");
+        const products = await response.json();
+        res.send(products[id-1]);
+    }catch(error){
+        console.log("Error getting products");
+    }
+    
+})
+app.post("/product",async(req,res) => {
+    console.log(req.body);
+    const pro = req.body;
+    const product = new Product(pro);
+    const result = await Product.insertMany([pro]);
+})
 
 app.post("/signup",async(req,res) => {
     // console.log(req.body);
@@ -135,10 +162,9 @@ app.post("/logout",async(req,res, next)=>{
     req.logout((err) => {
         if (err) return next(err);
         res.status(200).json({message:"Error Logging Out"});
-    });
-   
-        
-})
+    });   
+});
+
 
 
 

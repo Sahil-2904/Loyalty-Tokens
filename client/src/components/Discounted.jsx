@@ -6,13 +6,23 @@ import { ethers } from 'ethers';
 import {
   loginSuccess, logout, wallet, disconnectWallet,
 } from '../authActions';
-import products from '../products';
+// import products from '../products';
 import 'react-toastify/dist/ReactToastify.css';
 import Coin from '../images/Coin.svg';
 import LoyaltyToken from '../abstract/LoyaltyToken.json';
 import SuccessDialog from './SuccessDialog';
 
 function Discounted() {
+  const [products,setProducts] = useState([]);
+  useEffect(() => {
+      const getProducts = async () => {
+        const response = await fetch("http://localhost:3000/products");
+        const p = await response.json();
+        console.log(p);
+        setProducts(p);
+      }
+      getProducts();
+    },[]);
   const pro = products.filter((pro) => pro.tags.toLowerCase() === 'heavily-discounted');
   console.log(pro);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);

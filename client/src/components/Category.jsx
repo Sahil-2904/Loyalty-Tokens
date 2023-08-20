@@ -1,8 +1,8 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import products from '../products';
+// import products from '../products';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { loginSuccess, logout, wallet } from '../authActions';
@@ -10,12 +10,22 @@ import ANavbar from './ANavbar';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Category() {
+  const [products,setProducts] = useState([]);
+  useEffect(() => {
+    const getProducts = async () => {
+      const response = await fetch("http://localhost:3000/products");
+      const p = await response.json();
+      console.log(p);
+      setProducts(p);
+    }
+    getProducts();
+  },[]);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   console.log(isAuthenticated);
   const { category } = useParams();
-  // console.log(category);
+  console.log(category);
   const pro = products.filter((pro) => pro.category.toLowerCase() === category);
-  // console.log(pro);
+  console.log(pro);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const handleClick = (e, id) => {
@@ -42,6 +52,7 @@ function Category() {
           {
                         pro.map((product, index) => {
                           const link = `products/${product.id}`;
+                          console.log(link);
                           return (
                             <div key={index} className="flex p-4">
                               {' '}

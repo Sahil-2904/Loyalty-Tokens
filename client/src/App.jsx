@@ -10,6 +10,7 @@ import Profile from './routes/Profile';
 import Success from "./routes/Success";
 import Admin from "./routes/Admin";
 import Redeem from './routes/Reedeem';
+import Seller from './routes/Seller';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/success" element={<Success/>} />
       <Route path="/admin" element={<Admin/>} />
       <Route path="/profile/redeem" element={<Redeem/>}/>
+      <Route path="/seller" element={<Seller  />}/>
     </Routes>
   );
 }

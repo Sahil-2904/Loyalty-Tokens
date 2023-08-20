@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import autoIncrement from 'mongoose-auto-increment';
+// import autoIncrement from 'mongoose-auto-increment';
 
 const { Schema } = mongoose;
 
@@ -49,8 +49,8 @@ const ProductSchema = new Schema({
 // ?? Numbers of Loyalty Tokens to be granted
 
 
-autoIncrement.initialize(mongoose.connection);
-ProductSchema.plugin(autoIncrement.plugin, 'Product');
+// autoIncrement.initialize(mongoose.connection);
+// ProductSchema.plugin(autoIncrement.plugin, 'Product');
 
 const Product = mongoose.model("Product", ProductSchema);
 

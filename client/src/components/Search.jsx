@@ -1,8 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import products from '../products';
+// import products from '../products';
 
 function Search() {
+  const [products,setProducts] = useState([]);
+  useEffect(() => {
+      const getProducts = async () => {
+        const response = await fetch("http://localhost:3000/products");
+        const p = await response.json();
+        console.log(p);
+        setProducts(p);
+      }
+      getProducts();
+    },[]);
   const [text, setText] = useState('');
   const [pro, setPro] = useState([]);
   const handleChange = (e) => {
