@@ -72,10 +72,7 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
         _;
     }
 
-    function mintTo(
-        address to,
-        uint256 amount
-    ) external canMint returns (bool) {
+    function mintTo(address to, uint256 amount) external returns (bool) {
         require(to != address(0), "Cannot transfer tokens to zero address");
 
         _transactionId.increment();
@@ -90,7 +87,7 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
             amount,
             mintTime,
             true,
-            "Token Recieved for Purchase"
+            "Token Recieved for Loyalty"
         );
 
         emit tokenMinted(
@@ -100,7 +97,7 @@ contract LoyaltyToken is ERC20, ERC20Burnable, AccessControl {
             amount,
             mintTime,
             true,
-            "Tokens Recieved for Purchase"
+            "Tokens Recieved for Loyalty"
         );
 
         return true;

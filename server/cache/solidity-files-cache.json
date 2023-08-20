@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/Light/Documents/Projects/Hackathon/Loyalty-Tokens/server/contracts/LoyaltyToken.sol": {
-      "lastModificationDate": 1692562855946,
-      "contentHash": "1600bd4d04f67dac806aad97d9532308",
+      "lastModificationDate": 1692569394191,
+      "contentHash": "ecf8328a2e42fe5610e7fc27f6841266",
       "sourceName": "contracts/LoyaltyToken.sol",
       "solcConfig": {
         "version": "0.8.19",

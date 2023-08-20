@@ -4,9 +4,7 @@ import s2 from '../images/C2.png';
 
 function Carousel() {
   const [first, setFirst] = useState(true);
-  setTimeout(() => {
-    setFirst(!first);
-  }, 7000);
+
   return (
     <div className="carousel w-full min-h-screen">
       {
