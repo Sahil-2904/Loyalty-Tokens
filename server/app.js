@@ -15,6 +15,7 @@ import Product from "./models/productSchema.js";
 
 const salt = bcrypt.genSaltSync(10);
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -184,7 +185,7 @@ app.post("/logout",async(req,res, next)=>{
 
 
 
-app.listen(3000,(req,res) => {
+app.listen(PORT,(req,res) => {
     console.log("Server running at port 3000");
 })
 
