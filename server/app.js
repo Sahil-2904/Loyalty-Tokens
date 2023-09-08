@@ -68,7 +68,7 @@ passport.use(new LocalStrategy(
   
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD; 
-
+const url = process.env.SERVER_URL;
 
 connectDB(username, password);
 
@@ -85,7 +85,7 @@ app.get("/users",async (req,res)=>{
 app.get("/users/:id",async(req,res) => {
     console.log(req.params['id']);
     const id = req.params['id'];
-    const response = await fetch("http://localhost:3000/users");
+    const response = await fetch(`${url}/products`);
     const users = await response.json();
     res.send(users[id-1]);
 })
@@ -125,7 +125,7 @@ app.get("/products/:id",async(req,res) => {
     try{
         console.log(req.params['id']);
         const id = req.params['id'];
-        const response = await fetch("http://localhost:3000/products");
+        const response = await fetch(`${url}/products`);
         const products = await response.json();
         res.send(products[id-1]);
     }catch(error){
@@ -142,7 +142,7 @@ app.post("/product",async(req,res) => {
 
 app.post("/signup",async(req,res) => {
     // console.log(req.body);
-    const response = await fetch("http://localhost:3000/users");
+    const response = await fetch(`${url}/users`);
     const users = await response.json();
     const user = users.find((user) => user.email === req.body.email)
     if(!user){  
@@ -161,7 +161,7 @@ app.post("/signup",async(req,res) => {
 app.post("/login",async(req,res) => {
     console.log(req.body);
     const {email,password} = req.body;
-    const response = await fetch("http://localhost:3000/users");
+    const response = await fetch(`${url}/users`);
     const users = await response.json();
     // const hashedpassword = bcrypt.hashSync(password,salt);
     // console.log(email,hashedpassword,password);

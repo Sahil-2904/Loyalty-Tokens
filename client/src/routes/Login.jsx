@@ -27,7 +27,7 @@ function Login() {
   const handleLogin = async () => {
     const hashedpassword = bcrypt.hashSync(password, salt);
     try {
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch('https://loyalty-token-server.onrender.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

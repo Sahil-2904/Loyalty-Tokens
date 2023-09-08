@@ -12,7 +12,7 @@ function Seller() {
   const [load, setLoad] = useState(true);
   useEffect(() => {
     const getProducts = async () => {
-      const response = await fetch('http://localhost:3000/products');
+      const response = await fetch('/https://loyalty-token-server.onrender.com/products');
       const p = await response.json();
       console.log(p);
       setProducts(p);
@@ -25,7 +25,7 @@ function Seller() {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await fetch('http://localhost:3000/transactions');
+        const response = await fetch('https://loyalty-token-server.onrender.com/transactions');
         const transactionData = await response.json();
         console.log(transactionData);
         setTransactions(transactionData);
@@ -35,7 +35,7 @@ function Seller() {
     };
     const getUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3000/users');
+        const response = await fetch('https://loyalty-token-server.onrender.com/users');
         const users = await response.json();
         console.log(users);
         setUsers(users);
@@ -51,7 +51,7 @@ function Seller() {
     const pro = products[index];
     console.log(pro);
     try {
-      const response = fetch('http://localhost:3000/product', {
+      const response = fetch('https://loyalty-token-server.onrender.com/product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

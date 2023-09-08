@@ -31,7 +31,7 @@ function SignUp() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch('http://localhost:3000/users');
+        const res = await fetch('https://loyalty-token-server.onrender.com/users');
         const users = await res.json();
         setUsers(users);
       } catch (error) {
@@ -67,7 +67,7 @@ function SignUp() {
 
     };
     try {
-      const response = await fetch('http://localhost:3000/signup', {
+      const response = await fetch('https://loyalty-token-server.onrender.com/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
