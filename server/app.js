@@ -11,6 +11,7 @@ import User from './models/userSchema.js';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import Product from "./models/productSchema.js";
+import fetch from "node-fetch";
 
 
 const salt = bcrypt.genSaltSync(10);
