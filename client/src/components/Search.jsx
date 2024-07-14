@@ -8,7 +8,7 @@ function Search() {
       const getProducts = async () => {
         const response = await fetch("https://loyalty-token-server.onrender.com/products");
         const p = await response.json();
-        console.log(p);
+        // console.log(p);
         setProducts(p);
       }
       getProducts();
@@ -22,7 +22,7 @@ function Search() {
     if (inputValue.length === 0) setPro([]);
     else {
       const p = products.filter((product) => product.title.toLowerCase().includes(e.target.value.toLowerCase()));
-      console.log(p);
+      // console.log(p);
       setPro(p);
     }
   };

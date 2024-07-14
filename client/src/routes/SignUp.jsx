@@ -76,8 +76,8 @@ function SignUp() {
       });
       // console.log(response.status);
       const data = await response.json();
-      console.log(data);
-      console.log(newUser);
+      // console.log(data);
+      // console.log(newUser);
       if (response.ok) {
         dispatch(loginSuccess(newUser));
       } else {

@@ -35,8 +35,8 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      console.log(response);
-      console.log(data.user);
+      // console.log(response);
+      // console.log(data.user);
       if (response.ok) {
         dispatch(loginSuccess(data.user)); // Dispatch the action to login success state
       } else {
@@ -96,27 +96,3 @@ function Login() {
   );
 }
 export default Login;
-// import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { setAuthenticated } from '../authActions';
-
-// const Login = () => {
-//   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-//   const dispatch = useDispatch();
-
-//   const handleLogin = () => {
-//     dispatch(setAuthenticated(true)); // Dispatch the action to set authentication state
-//   };
-
-//   return (
-//     <div>
-//       {isAuthenticated ? (
-//         <p>Welcome, you are authenticated!</p>
-//       ) : (
-//         <button onClick={handleLogin}>Login</button>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Login;

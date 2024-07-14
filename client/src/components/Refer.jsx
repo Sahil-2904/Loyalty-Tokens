@@ -6,7 +6,7 @@ import referal from '../referal';
 function Refer() {
   const SendReferral = (e) => {
     e.preventDefault();
-    const message = 'Hi there!! Mahim Gupta have invited you to DE - A blockchain based E-Commerce chain.Enjoy exciting offers and win rewards by completing challenges.\n\n*Referral Code: 775e1c62*\n\nHope to see you soon😊';
+    const message = 'Hi there!! I have invited you to DE - A blockchain based E-Commerce chain.Enjoy exciting offers and win rewards by completing challenges.\n\n*Referral Code: 775e1c62*\n\nHope to see you soon😊';
     let url = 'https://web.whatsapp.com/send?';
     url += `text=${encodeURI(message)}&app_absent=0`;
     window.open(url);

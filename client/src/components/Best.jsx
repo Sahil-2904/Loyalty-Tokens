@@ -26,7 +26,7 @@ function Best() {
     const getProducts = async () => {
       const response = await fetch("https://loyalty-token-server.onrender.com/products");
       const p = await response.json();
-      console.log(p);
+      // console.log(p);
       setProducts(p);
     }
     getProducts();

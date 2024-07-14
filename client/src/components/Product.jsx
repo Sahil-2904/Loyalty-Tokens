@@ -12,7 +12,7 @@ import Loader from "../components/Loader";
 function Product() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const [products,setProducts] = useState([]);
   const [load,setLoad] = useState(true);
   // let pro = []; 

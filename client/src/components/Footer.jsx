@@ -12,7 +12,7 @@ function Footer() {
               <Link to="/"><img className="w-16 h-16" src={Logo} alt="" /></Link>
               {/* <h2 className="flex bg-white p-3 w-16 rounded-full text-3xl text-[#141619] justify-center">DE</h2> */}
             </div>
-            <p className="flex text-xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p className="flex text-xl">Unlock Rewards, Elevate Shopping - Our Ecommerce Loyatly Programs Awaits You.</p>
           </div>
           <div className="flex flex-col gap-3">
             <h2 className="flex text-3xl">NewsLetter</h2>

@@ -15,7 +15,7 @@ function Success(){
     //     cart:[]
     // }
     user.cart = [];
-    console.log(user);
+    // console.log(user);
     dispatch(loginSuccess(user));
     return (
         <>

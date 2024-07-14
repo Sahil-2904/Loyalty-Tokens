@@ -12,10 +12,12 @@ import Admin from "./routes/Admin";
 import Redeem from './routes/Reedeem';
 import Seller from './routes/Seller';
 import Earn from './routes/Earn';
+import Notfound from './components/Notfound';
 
 function App() {
   return (
     <Routes>
+      <Route path="*" element={<Notfound />}/>
       <Route path="/" element={<Home />} />
       <Route path="/products/:id" element={<Product />} />
       <Route path="/categories/:category" element={<Category />} />
