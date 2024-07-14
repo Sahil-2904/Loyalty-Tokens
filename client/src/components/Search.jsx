@@ -16,7 +16,7 @@ function Search() {
   const [text, setText] = useState('');
   const [pro, setPro] = useState([]);
   const handleChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const inputValue = e.target.value;
     setText(inputValue);
     if (inputValue.length === 0) setPro([]);

@@ -11,7 +11,7 @@ function Refer() {
     url += `text=${encodeURI(message)}&app_absent=0`;
     window.open(url);
   };
-  console.log(referal);
+  // console.log(referal);
   return (
     <div className="flex gap-5">
       <div className="flex flex-col justify-center w-2/5 p-10 gap-5">

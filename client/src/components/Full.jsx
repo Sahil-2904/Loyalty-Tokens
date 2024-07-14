@@ -68,7 +68,7 @@ function Full() {
 
   let p = 0;
   for (let i = 0; i < user.cart.length; i++) {
-    console.log(user.cart[i]);
+    // console.log(user.cart[i]);
     const { id } = user.cart[i];
     const q = user.cart[i].quantity;
     // console.log(id,q);
@@ -83,9 +83,9 @@ function Full() {
     return tokens;
   }
   const removeCart = (e, item) => {
-    console.log(item);
+    // console.log(item);
     const updatedCart = user.cart.filter((i) => i != item);
-    console.log(updatedCart);
+    // console.log(updatedCart);
     setCart(updatedCart);
     // user.cart = cart;
     dispatch(loginSuccess({ ...user, cart: updatedCart }));

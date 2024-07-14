@@ -12,7 +12,7 @@ function MyCart() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const connected = useSelector((state) => state.auth.connected);
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
+  // console.log(user);
   return (
     <>
       {isAuthenticated ? <ANavbar /> : <Navbar /> }

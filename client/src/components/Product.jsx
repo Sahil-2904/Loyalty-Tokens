@@ -20,7 +20,7 @@ function Product() {
       const getProducts = async () => {
         const response = await fetch("https://loyalty-token-server.onrender.com/products");
         const p = await response.json();
-        console.log(p);
+        // console.log(p);
         setProducts(p);
         // pro = p[id-1];
         // console.log(pro);
@@ -43,7 +43,7 @@ function Product() {
     };
     user.cart.push(item);
     dispatch(loginSuccess(user));
-    console.log(id);
+    // console.log(id);
     toast.success('Product Added to Cart');
   };
   return (
