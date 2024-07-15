@@ -13,7 +13,7 @@ function ANavbar() {
   const tokens = useSelector((state) => state.auth.tokens);
   const dispatch = useDispatch();
   const handleLogout = async () => {
-    const response = await fetch('https://loyalty-token-server.onrender.com/logout', {
+    const response = await fetch(`${process.env.SERVER_BASE_URL}/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

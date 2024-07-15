@@ -6,7 +6,7 @@ function Search() {
   const [products,setProducts] = useState([]);
   useEffect(() => {
       const getProducts = async () => {
-        const response = await fetch("https://loyalty-token-server.onrender.com/products");
+        const response = await fetch(`${process.env.SERVER_BASE_URL}/products`);
         const p = await response.json();
         // console.log(p);
         setProducts(p);

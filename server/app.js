@@ -75,6 +75,10 @@ connectDB(username, password);
 
 const transactions =[];
 
+app.get("/",async(req,res) => {
+    res.send("Hello");
+})
+
 app.get("/users",async (req,res)=>{
     try{
         const users = await User.find({}).exec();

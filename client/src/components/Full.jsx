@@ -94,7 +94,7 @@ function Full() {
 
   // },[user]);
   const handleSuccess = async () => {
-    const response = await fetch('https://loyalty-token-server.onrender.com/transactions', {
+    const response = await fetch(`${process.env.SERVER_BASE_URL}/transactions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

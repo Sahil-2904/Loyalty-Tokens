@@ -19,7 +19,7 @@ function Admin() {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await fetch('https://loyalty-token-server.onrender.com/transactions');
+        const response = await fetch(`${process.env.SERVER_BASE_URL}/transactions`);
         const transactionData = await response.json();
         console.log(transactionData);
         setTransactions(transactionData);
