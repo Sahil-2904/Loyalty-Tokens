@@ -60,10 +60,13 @@ function Login() {
           <div className="flex justify-center">
             <input onChange={(e) => setEmail(e.target.value)} value={email} type="email" placeholder="Email" className="input input-info w-full max-w-xs" />
           </div>
-          <div className="flex justify-center gap-3">
-            <input onChange={(e) => setPassword(e.target.value)} value={password} type={show ? 'text' : 'password'} placeholder="Password" className="input input-info w-full max-w-xs" />
-            <button onClick={() => { setShow(!show); }} className="absolute flex flex-col justify-center hover:bg-slate-100 p-2 rounded-full top-[47vh] right-[18vw]"><img className="flex flex-col justify-center w-5 h-5" src={show ? visible : hidden} alt="" /></button>
+          <div className='flex justify-center'>
+            <div className="flex justify-between gap-3 input input-info w-full max-w-xs">
+              <input onChange={(e) => setPassword(e.target.value)} value={password} type={show ? 'text' : 'password'} placeholder="Password" className="border-none outline-none" ></input>
+              <button onClick={() => { setShow(!show); }} className="flex items-center justify-center hover:bg-slate-100 p-3 rounded-full"><img className="flex items-center justify-center w-5 h-5" src={show ? visible : hidden} alt="" /></button>
+            </div>
           </div>
+          
           <button onClick={handleLogin} className="flex justify-center p-3">
             <Link to={link}>
               <div className="flex gap-x-5 bg-sky-400 rounded-2xl p-3 shadow hover:bg-sky-500  transition-all duration-300 ease-out">
@@ -73,13 +76,13 @@ function Login() {
           </button>
         </div>
         <hr className="flex w-1/2 mx-auto" />
-        <div className="flex justify-center p-5">
+        {/* <div className="flex justify-center p-5">
           <a href="/auth/google" className="flex gap-x-3 bg-slate-100 rounded-2xl p-5 shadow hover:bg-slate-200  transition-all duration-300 ease-out">
             <img className="w-10 h-10" src={Google} alt="google" />
             <h1 className="text-xl flex flex-col justify-center">Log In with Google</h1>
           </a>
-        </div>
-        <div className="flex justify-center" href="/signup">
+        </div> */}
+        <div className="flex justify-center mt-3" href="/signup">
           <Link to="/signup"><p className="flex text-xl">New User? Create an account</p></Link>
         </div>
       </div>
